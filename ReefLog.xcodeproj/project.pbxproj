@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		502893752D55DB03000E8580 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 502893742D55DAFD000E8580 /* .gitignore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		502893462D55D50E000E8580 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		502893342D55D50B000E8580 /* ReefLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReefLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		502893452D55D50E000E8580 /* ReefLogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReefLogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5028934F2D55D50E000E8580 /* ReefLogUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReefLogUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		502893742D55DAFD000E8580 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +80,7 @@
 		5028932B2D55D50B000E8580 = {
 			isa = PBXGroup;
 			children = (
+				502893742D55DAFD000E8580 /* .gitignore */,
 				502893362D55D50B000E8580 /* ReefLog */,
 				502893482D55D50E000E8580 /* ReefLogTests */,
 				502893522D55D50E000E8580 /* ReefLogUITests */,
@@ -212,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				502893752D55DB03000E8580 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
