@@ -30,6 +30,8 @@ struct ContentView: View {
                     Label("Fun Facts", systemImage: "hand.thumbsup")
                 }
             
+            
+            
         }
     }
 }
