@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  ReefLog
-//
-//  Created by Alhwyn Geonzon on 2025-02-06.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -12,26 +5,16 @@ struct ContentView: View {
         TabView {
             HomeView()
                 .tabItem {
-                    Label("Home", systemImage: "person")
+                    Label("Dives Log", systemImage: "water.waves")
                 }
-
-            StoryView()
+            HomeView()
                 .tabItem {
-                    Label("Story", systemImage: "book")
+                    Label("Fish Catalog", systemImage: "fish")
                 }
-            
-            FavoritesView()
+            HomeView()
                 .tabItem {
-                    Label("Favorites", systemImage: "star")
+                    Label("Scuba Guide", systemImage: "info.circle")
                 }
-            
-            FunFactsView()
-                .tabItem {
-                    Label("Fun Facts", systemImage: "hand.thumbsup")
-                }
-            
-            
-            
         }
     }
 }
