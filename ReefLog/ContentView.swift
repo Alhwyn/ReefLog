@@ -7,9 +7,9 @@ struct ContentView: View {
                 .tabItem {
                     Label("Dives Log", systemImage: "water.waves")
                 }
-            HomeView()
+            FishListView()
                 .tabItem {
-                    Label("Fish Catalog", systemImage: "fish")
+                    Label("Reef Catalog", systemImage: "fish")
                 }
             HomeView()
                 .tabItem {
