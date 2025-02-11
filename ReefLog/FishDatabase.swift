@@ -27,12 +27,12 @@ class FishDatabase: ObservableObject {
         Fish(scienticName: "Amphiprioninae",
              name: "Clown Fish",
              description: "A small, brightly colored fish that lives in anemones.",
-             endangeredLevel: true,
+             endangeredLevel: false,
              isFoundByUser: false),
         Fish(scienticName: "Labridae",
              name: "Wrasse",
              description: "A diverse family of fish often found in coral reefs.",
-             endangeredLevel: true,
+             endangeredLevel: false,
              isFoundByUser: true)
     ]
     
