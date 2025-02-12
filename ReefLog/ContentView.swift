@@ -11,7 +11,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Reef Catalog", systemImage: "fish")
                 }
-            HomeView()
+            FishListView()
                 .tabItem {
                     Label("Scuba Guide", systemImage: "info.circle")
                 }

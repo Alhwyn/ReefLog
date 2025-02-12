@@ -60,6 +60,7 @@ struct DiveEntryRowView: View {
         case "Wrasse": return Color(red: 0.9, green: 0.4, blue: 0.3)
         case "Green Turtle": return Color(red: 0.4, green: 0.8, blue: 0.4)
         case "Clown Fish": return Color(red: 0.9, green: 0.5, blue: 0.3)
+        case "Star Fish": return Color(red: 0.9, green: 0.5, blue: 0.3)
         default: return .gray
         }
     }

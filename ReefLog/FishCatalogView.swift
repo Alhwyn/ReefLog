@@ -21,16 +21,9 @@ struct FishListView: View {
                                 Text("Endangered")
                                     .font(.caption)
                                     .foregroundStyle(.red)
-                            }
-                            
+                            } 
                         }
                         Spacer()
-                        Button(action: {
-                            database.markAsFound(fish: fish)
-                        }) {
-                            Image(systemName: fish.isFoundByUser ? "checkmark.circle.fill" : "circle")
-                                .foregroundColor(fish.isFoundByUser ? .green : .gray)
-                        }
                     }
                     .padding(.vertical, 4)
                 }
@@ -38,7 +31,7 @@ struct FishListView: View {
             .navigationTitle("Fish Catalog")
         }
         .onAppear() {
-            database.loadFromUserDefaults()
+            database
         }
     }
 }
