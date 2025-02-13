@@ -14,6 +14,7 @@ struct ContentView: View {
             FishListView()
                 .tabItem {
                     Label("Scuba Guide", systemImage: "info.circle")
+                    
                 }
         }
     }
