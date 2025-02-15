@@ -56,11 +56,31 @@ struct DiveEntryRowView: View {
     
     func getColorForSpecies(_ species: String) -> Color {
         switch species {
-        case "Thresher Shark": return Color(red: 0.4, green: 0.6, blue: 0.9)
-        case "Wrasse": return Color(red: 0.9, green: 0.4, blue: 0.3)
-        case "Green Turtle": return Color(red: 0.4, green: 0.8, blue: 0.4)
-        case "Clown Fish": return Color(red: 0.9, green: 0.5, blue: 0.3)
-        case "Star Fish": return Color(red: 0.9, green: 0.5, blue: 0.3)
+        case "Wrasse": return Color(red: 0.0, green: 0.5, blue: 1.0) // Blue
+        case "Triggerfish": return Color(red: 1.0, green: 0.75, blue: 0.2) // Yellowish
+        case "Thresher Shark": return Color(red: 0.3, green: 0.3, blue: 0.3) // Dark Grey
+        case "Starfish": return Color(red: 0.9, green: 0.4, blue: 0.3) // Orange-red
+        case "Sponge": return Color(red: 1.0, green: 0.9, blue: 0.5) // Pale Yellow
+        case "Sea Horse": return Color(red: 0.9, green: 0.7, blue: 0.4) // Golden
+        case "Sea Fans": return Color(red: 0.7, green: 0.3, blue: 0.7) // Purple
+        case "Scuba Diver": return Color(red: 0.0, green: 0.0, blue: 0.0) // Black
+        case "Pufferfish": return Color(red: 1.0, green: 0.9, blue: 0.6) // Pale Beige
+        case "Parrot Fish": return Color(red: 0.0, green: 0.8, blue: 1.0) // Turquoise
+        case "Octopus": return Color(red: 0.5, green: 0.0, blue: 0.5) // Deep Purple
+        case "Nudibranch": return Color(red: 0.9, green: 0.2, blue: 0.5) // Bright Pinkish
+        case "Moray Eel": return Color(red: 0.3, green: 0.4, blue: 0.2) // Olive Green
+        case "Manta Ray": return Color(red: 0.4, green: 0.4, blue: 0.5) // Slate Grey
+        case "Lionfish": return Color(red: 0.8, green: 0.3, blue: 0.2)
+        case "Groupers": return Color(red: 0.5, green: 0.4, blue: 0.3) // Brownish
+        case "Green Turtle": return Color(red: 0.4, green: 0.8, blue: 0.4) // Green
+        case "Frog Fish": return Color(red: 0.9, green: 0.7, blue: 0.2) // Yellowish-Orange
+        case "Feather Star": return Color(red: 0.9, green: 0.6, blue: 0.4) // Coral
+        case "Cow Fish": return Color(red: 0.7, green: 0.6, blue: 0.3) // Mustard Yellow
+        case "Clown Fish": return Color(red: 1.0, green: 0.55, blue: 0.0) // Orange
+        case "Butterfly Fish": return Color(red: 1.0, green: 0.9, blue: 0.3) // Lemon Yellow
+        case "Brain Coral": return Color(red: 0.8, green: 0.6, blue: 0.5) // Sandy Pink
+        case "Banded Sea Snake": return Color(red: 0.1, green: 0.1, blue: 0.1)
+        case "Angel Fish": return Color(red: 0.5, green: 0.7, blue: 1.0) // Light Blue  
         default: return .gray
         }
     }

@@ -1,3 +1,4 @@
+
 import Foundation
 
 class DataModel: ObservableObject {
@@ -21,31 +22,24 @@ class DataModel: ObservableObject {
         }
     }
     
-    func addItem(item: Item) {
+
+    func addItem(_ item: Item) {
         items.insert(item, at: 0)
     }
     
-    func removeItem(item: Item) {
+    func removeItem(_ item: Item) {
         if let index = items.firstIndex(of: item) {
             items.remove(at: index)
             FileManager.default.removeItemFromDocumentDirectory(url: item.url)
         }
     }
-    
-    
 }
 
-
-
-
-
-
-
-
 extension URL {
-    
+    /// Indicates whether the URL has a file extension corresponding to a common image format.
     var isImage: Bool {
         let imageExtensions = ["jpg", "jpeg", "png", "gif", "heic"]
         return imageExtensions.contains(self.pathExtension)
     }
 }
+
