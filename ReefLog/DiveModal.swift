@@ -27,21 +27,16 @@ struct DiveEntryView: View {
                 
                 Section(header: Text("Country")) {
                     TextField("Enter Location", text: $country)
-                
+    
                 }
-                
                 Section(header: Text("Dive time")) {
                     TextField("Enter Location", text: $time)
-                
                 }
-                
                 
                 Section(header: Text("Depth")) {
                     TextField("Enter Location", text: $depth)
-                
                 }
                 
-            
                 Section(header: Text("Fish Sighting")) {
                     TextField("Enter sighting (comma-seperated)", text: $sightingsInput)
                 }

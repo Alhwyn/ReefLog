@@ -3,7 +3,7 @@ import SwiftUI
 
 
 struct Fish: Identifiable, Codable {
-    let id = UUID()
+    var id = UUID()
     let scienticName: String
     let name: String
     let description: String
