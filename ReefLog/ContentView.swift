@@ -24,7 +24,7 @@ struct ContentView: View {
                     
                 }
         }
-        .background(.thinMaterial)
+        .background(.blue)
     }
 }
 

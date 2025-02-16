@@ -28,7 +28,7 @@ struct StatsCircleView: View {
                                 [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
                             ],
                             colors: [
-                                .white, .blue, .black,
+                                .white, .cyan, .blue,
                                 .cyan, .cyan, .teal,
                                 .teal, .teal, .white
                             ]
@@ -65,7 +65,7 @@ struct StatsCircleView: View {
                 ],
                 colors: [
                     .white, .white, .white,
-                    .cyan, .blue, .teal,
+                    .white, .white, .white,
                     .cyan, .cyan, .teal
                 ]
             )
@@ -165,6 +165,7 @@ struct DiveEntryRowView: View {
         .padding()
         .background(.regularMaterial)
         .cornerRadius(12)
+        .shadow(radius: 2)
         
     }
 }
@@ -243,12 +244,14 @@ struct FlowResult {
 }
 
 struct HomeView: View {
+
+    @State private var isLogging = false
     @State private var sampleEntries: [DiveEntry] = [
+        DiveEntry(date: Date(), location: "Philippines Kontiki Reef", sightings: ["Thresher Shark", "Wrasse", "Clown Fish", "Green Turtle"]),
+        DiveEntry(date: Date(), location: "Philippines Kontiki Reef", sightings: ["Thresher Shark", "Wrasse", "Clown Fish", "Green Turtle"]),
         DiveEntry(date: Date(), location: "Philippines Kontiki Reef", sightings: ["Thresher Shark", "Wrasse", "Clown Fish", "Green Turtle"]),
 
     ]
-    
-    @State private var isLogging = false
     
     var totalEntries: Int {
         sampleEntries.count
@@ -259,7 +262,7 @@ struct HomeView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             StatsCircleView(diveCount: totalEntries, speciesCount: totalSightings)
             
             ScrollView {
@@ -282,7 +285,7 @@ struct HomeView: View {
                         [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
                     ],
                     colors: [
-                        .teal, .blue, .cyan,
+                        .cyan, .cyan, .teal,
                         .cyan, .blue, .blue,
                         .blue, .cyan, .blue
                     ]
@@ -298,13 +301,14 @@ struct HomeView: View {
                         .font(.title2)
                         .foregroundStyle(.white)
                         .frame(width: 50, height: 50)
-                        .background(Color(red: 0.8, green: 0.9, blue: 0.9))
+                        .background(.teal)
                         .clipShape(Circle())
                         .shadow(radius: 2)
                 }
                 .padding(.trailing, 30)
+                
             }
-            .navigationTitle("My Dives")
+            .background(.clear)
             .sheet(isPresented: $isLogging) {
                 DiveEntryView { NewEntry  in
                     sampleEntries.append(NewEntry)

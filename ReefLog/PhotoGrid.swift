@@ -13,7 +13,7 @@ struct PhotoGrid: View {
     
     var body: some View {
         ScrollView(.horizontal) {
-            LazyHStack(spacing: 22) {
+            LazyHStack(spacing: 5) {
                 ForEach(images) { item in
                     ZStack {
                         PhotoGridItem(image: item.image, name: item.name)
@@ -21,7 +21,7 @@ struct PhotoGrid: View {
                                 axis: .horizontal
                             ) { content, phase in
                                 return content
-                                    .offset(x: phase.value * -250)
+                                    .offset(x: phase.value * -270)
                         }
                     }
                     .containerRelativeFrame(.horizontal)

@@ -20,7 +20,6 @@ struct PhotoGridItem: View {
                 HStack {
                     Text(name)
                         .font(.largeTitle)
-       
                     Spacer()
 
                 }
