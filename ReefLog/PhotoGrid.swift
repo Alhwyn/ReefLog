@@ -12,14 +12,23 @@ struct PhotoGrid: View {
     let images: [NamedImage]
     
     var body: some View {
-        ScrollView(.vertical) {
-            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+        ScrollView(.horizontal) {
+            LazyHStack(spacing: 22) {
                 ForEach(images) { item in
-                    PhotoGridItem(image: item.image, name: item.name)
+                    ZStack {
+                        PhotoGridItem(image: item.image, name: item.name)
+                            .scrollTransition(
+                                axis: .horizontal
+                            ) { content, phase in
+                                return content
+                                    .offset(x: phase.value * -250)
+                        }
+                    }
+                    .containerRelativeFrame(.horizontal)
+                    .clipShape(RoundedRectangle(cornerRadius: 32))
                 }
             }
-            .padding(10)
         }
-        .frame(maxHeight: 400)
+        .scrollTargetBehavior(.paging)
     }
 }

@@ -48,17 +48,16 @@ struct DiveEntryView: View {
                     TextField("Enter sighting (comma-separated)", text: $sightingsInput)
                 }
                 
-                Section(header: Text("Add Photos")) {
+                Section(header: Text("Scuba Photos")) {
                     PhotosPicker(selection: $selectedItems, matching: .images, photoLibrary: .shared()) {
-                        Label("Select Photos", systemImage: "photo.on.rectangle.angled")
+                        Label("Select Photos", systemImage: "fish.circle")
                     }
                 }
                 
                 // **Scuba Photos Section**
                 if !selectedImages.isEmpty {
-                    Section(header: Text("Scuba Photos").font(.headline)) {
-                        PhotoGrid(images: selectedImages)
-                    }
+                    PhotoGrid(images: selectedImages)
+                   
                 }
             }
             .navigationTitle("Dive Log")

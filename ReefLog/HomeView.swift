@@ -131,7 +131,6 @@ struct DiveEntryRowView: View {
     }
 }
     
-
 struct FlowLayout: Layout {
     
     var spacing: CGFloat = 4
@@ -208,9 +207,8 @@ struct FlowResult {
 
 struct HomeView: View {
     @State private var sampleEntries: [DiveEntry] = [
-        DiveEntry(date: Date(), location: "Philippines Kontiki Reef", sightings: ["Thresher Shark", "Wrasse"]),
         DiveEntry(date: Date(), location: "Philippines Kontiki Reef", sightings: ["Thresher Shark", "Wrasse", "Clown Fish", "Green Turtle"]),
-        DiveEntry(date: Date(), location: "Malapascua Island", sightings: ["Thresher Shark", "Green Turtle"])
+
     ]
     
     @State private var isLogging = false

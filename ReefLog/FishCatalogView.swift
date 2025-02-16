@@ -36,3 +36,7 @@ struct FishListView: View {
     }
 }
 
+#Preview {
+    FishListView()
+}
+
