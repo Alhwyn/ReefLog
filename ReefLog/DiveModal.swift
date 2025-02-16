@@ -27,30 +27,39 @@ struct DiveEntryView: View {
     
     var body: some View {
         NavigationView {
-            Form {
-                Section(header: Text("Dive Site")) {
-                    TextField("Enter Location", text: $location)
-                }
+            ZStack {
                 
-                Section(header: Text("Country")) {
-                    TextField("Enter Country", text: $country)
-                }
+                Rectangle()
+                    .fill(.ultraThinMaterial)
+                    .ignoresSafeArea()
                 
-                Section(header: Text("Dive Time")) {
-                    TextField("Enter Time", text: $time)
-                }
-                
-                Section(header: Text("Scuba Photos")) {
-                    PhotosPicker(selection: $selectedItems, matching: .images, photoLibrary: .shared()) {
-                        Label("Select Photos", systemImage: "fish.circle")
+                Form {
+                    
+                    Section(header: Text("Scuba Photos")) {
+                        PhotosPicker(selection: $selectedItems, matching: .images, photoLibrary: .shared()) {
+                            Label("Select Photos", systemImage: "fish.circle")
+                        }
+                    }
+                    
+                    
+                    Section(header: Text("Dive Site")) {
+                        TextField("Enter Location", text: $location)
+                    }
+                    
+                    Section(header: Text("Dive Time")) {
+                        TextField("Enter Time", text: $time)
+                    }
+                    
+                    
+                    
+                    // **Scuba Photos Section**
+                    if !selectedImages.isEmpty {
+                        PhotoGrid(images: selectedImages)
+                        
                     }
                 }
-                
-                // **Scuba Photos Section**
-                if !selectedImages.isEmpty {
-                    PhotoGrid(images: selectedImages)
-                   
-                }
+                .scrollContentBackground(.hidden) // Removes default Form background
+                .background(.ultraThinMaterial) // Adds additional blur inside Form
             }
             .navigationTitle("Dive Log")
             .toolbar {
@@ -86,6 +95,7 @@ struct DiveEntryView: View {
                 }
             }
         }
+        .presentationBackground(.ultraThinMaterial)
     }
     
     

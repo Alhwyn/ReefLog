@@ -267,12 +267,17 @@ struct HomeView: View {
             
             ScrollView {
                 LazyVStack(spacing: 12) {
-                    ForEach(sampleEntries) { entry in
-                        DiveEntryRowView(entry: entry)
-                        
+                        ForEach(sampleEntries) { entry in
+                            DiveEntryRowView(entry: entry)
+                                .scrollTransition(.animated.threshold(.visible(0.7))) { content, phase in
+                                    content
+                                        .opacity(phase.isIdentity ? 1 : 0)
+                                        .scaleEffect(phase.isIdentity ? 1 : 0.25)
+                                        .blur(radius: phase.isIdentity ? 0 : 12)
+                                }
+                        }
                     }
-                }
-                .padding(.horizontal)
+                    .padding(.horizontal)
 
             }
             .background(
@@ -287,7 +292,7 @@ struct HomeView: View {
                     colors: [
                         .cyan, .cyan, .teal,
                         .cyan, .blue, .blue,
-                        .blue, .cyan, .blue
+                        .blue, .blue, .blue
                     ]
                 )
             )
@@ -308,7 +313,20 @@ struct HomeView: View {
                 .padding(.trailing, 30)
                 
             }
-            .background(.clear)
+            .background(MeshGradient(
+                width: 3,
+                height: 3,
+                points: [
+                    [0.0, 0.5], [0.0, 0.0], [1.0, 0.0],
+                    [0.0, 0.5], [0.9, 0.3], [1.0, 0.5],
+                    [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
+                ],
+                colors: [
+                    .blue, .blue, .blue,
+                    .blue, .blue, .blue,
+                    .blue, .cyan, .blue
+                ]
+            ))
             .sheet(isPresented: $isLogging) {
                 DiveEntryView { NewEntry  in
                     sampleEntries.append(NewEntry)
