@@ -30,6 +30,12 @@ struct DiveEntryView: View {
             ZStack {
                 Form {
                     
+                    // **Scuba Photos Section**
+                    if !selectedImages.isEmpty {
+                        PhotoGrid(images: selectedImages)
+                        
+                    }
+                    
                     Section(header: Text("Scuba Photos")) {
                         PhotosPicker(selection: $selectedItems, matching: .images, photoLibrary: .shared()) {
                             Label("Select Photos", systemImage: "fish.circle")
@@ -45,16 +51,10 @@ struct DiveEntryView: View {
                         TextField("Enter Time", text: $time)
                     }
                     
-                    
-                    
-                    // **Scuba Photos Section**
-                    if !selectedImages.isEmpty {
-                        PhotoGrid(images: selectedImages)
-                        
-                    }
+    
                 }
                 .scrollContentBackground(.hidden)
-                .background(.ultraThinMaterial)
+                .background(.regularMaterial)
             }
             .navigationTitle("Dive Log")
             .toolbar {
