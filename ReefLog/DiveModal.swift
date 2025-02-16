@@ -28,11 +28,6 @@ struct DiveEntryView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                
-                Rectangle()
-                    .fill(.ultraThinMaterial)
-                    .ignoresSafeArea()
-                
                 Form {
                     
                     Section(header: Text("Scuba Photos")) {
@@ -58,8 +53,8 @@ struct DiveEntryView: View {
                         
                     }
                 }
-                .scrollContentBackground(.hidden) // Removes default Form background
-                .background(.ultraThinMaterial) // Adds additional blur inside Form
+                .scrollContentBackground(.hidden)
+                .background(.ultraThinMaterial)
             }
             .navigationTitle("Dive Log")
             .toolbar {
