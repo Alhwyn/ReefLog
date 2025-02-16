@@ -1,10 +1,5 @@
-//
-//  DiveModal.swift
-//  ReefLog
-//
-//  Created by Alhwyn Geonzon on 2025-02-09.
-//
 import SwiftUI
+import PhotosUI
 
 struct DiveEntryView: View {
     @Environment(\.dismiss) var dismiss
@@ -13,32 +8,59 @@ struct DiveEntryView: View {
     @State private var time = ""
     @State private var depth = ""
     @State private var sightingsInput = ""
-    
+
+    @State private var selectedItems: [PhotosPickerItem] = []
+    @State private var selectedImages: [UIImage] = []
+
     var onSave: (DiveEntry) -> Void
-    
+
     var body: some View {
         NavigationView {
             Form {
-             
                 Section(header: Text("Dive site")) {
                     TextField("Enter Location", text: $location)
-                
                 }
-                
+
                 Section(header: Text("Country")) {
-                    TextField("Enter Location", text: $country)
-    
+                    TextField("Enter Country", text: $country)
                 }
+
                 Section(header: Text("Dive time")) {
-                    TextField("Enter Location", text: $time)
+                    TextField("Enter Time", text: $time)
                 }
-                
+
                 Section(header: Text("Depth")) {
-                    TextField("Enter Location", text: $depth)
+                    TextField("Enter Depth", text: $depth)
                 }
-                
+
                 Section(header: Text("Fish Sighting")) {
-                    TextField("Enter sighting (comma-seperated)", text: $sightingsInput)
+                    TextField("Enter sighting (comma-separated)", text: $sightingsInput)
+                }
+
+                Section(header: Text("Add Photos")) {
+                    PhotosPicker(selection: $selectedItems, matching: .images, photoLibrary: .shared()) {
+                        Label("Select Photos", systemImage: "photo.on.rectangle.angled")
+                    }
+
+                    // Display selected images
+                    if !selectedImages.isEmpty {
+                        Section(header: Text("Photo Gallery")) {
+                            ScrollView(.vertical) {
+                                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                                    ForEach(selectedImages, id: \.self) { image in
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 150, height: 150)
+                                            .shadow(radius: 5)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    }
+                                }
+                                .padding(.vertical, 10)
+                            }
+                            .frame(width: 700, height: 400)
+                        }
+                    }
                 }
             }
             .navigationTitle("Dive Log")
@@ -53,21 +75,31 @@ struct DiveEntryView: View {
                         let sightings = sightingsInput
                             .split(separator: ",")
                             .map { $0.trimmingCharacters(in: .whitespaces) }
-                        
+
                         let newEntry = DiveEntry(date: Date(), location: location, sightings: sightings)
                         onSave(newEntry)
                         dismiss()
-                        
-                        
                     }
                     .disabled(location.isEmpty || sightingsInput.isEmpty)
                 }
             }
         }
+        .onChange(of: selectedItems) { newItems in
+            Task {
+                var images: [UIImage] = []
+                for item in newItems {
+                    if let data = try? await item.loadTransferable(type: Data.self),
+                       let uiImage = UIImage(data: data) {
+                        images.append(uiImage)
+                    }
+                }
+                selectedImages = images
+            }
+        }
     }
 }
-
 
 #Preview {
     DiveEntryView(onSave: { _ in })
 }
+
