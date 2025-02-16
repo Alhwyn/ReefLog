@@ -12,19 +12,24 @@ struct PhotoGridItem: View {
     let name: String
     
     var body: some View {
-        VStack {
-            Image(uiImage: image)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 200, height: 300)
+
+        Image(uiImage: image)
+            .resizable()
+            .scaledToFill()
+            .overlay(alignment: .bottom) {
+                HStack {
+                    Text(name)
+                        .font(.largeTitle)
+       
+                    Spacer()
+
+                }
+                .multilineTextAlignment(.center)
+                .background(.thinMaterial)
+                
+            }
             
-            Text(name)
-                .font(.caption)
-                .foregroundColor(.black)
-                .frame(maxWidth: .infinity)
-                .background(Color.gray.opacity(0.2))
-                .clipShape(RoundedRectangle(cornerRadius: 5))
-        }
+            
+        
     }
 }
-

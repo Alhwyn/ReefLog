@@ -5,6 +5,8 @@ struct FishListView: View {
     
     var body: some View {
         NavigationView {
+            
+            
             List {
                 ForEach(database.fishList) { fish in
                     HStack {
@@ -27,6 +29,7 @@ struct FishListView: View {
                     }
                     .padding(.vertical, 4)
                 }
+                
             }
             .navigationTitle("Fish Catalog")
         }

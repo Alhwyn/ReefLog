@@ -15,22 +15,61 @@ struct StatsCircleView: View {
     let speciesCount: Int
     
     var body: some View {
-        ZStack {
-            Circle()
-                .fill(Color(red: 0.8, green: 0.9, blue: 0.9))
-            
-            VStack(spacing: 4) {
-                Text("\(diveCount)")
-                    .font(.system(size: 40, weight: .medium))
-                Text("Dives")
-                    .font(.system(size: 20))
-                Text("\(speciesCount) Fish Logged")
-                    .font(.system(size: 16))
-                    .foregroundColor(.gray)
+        VStack {
+            ZStack {
+                Circle()
+                    .fill(
+                        MeshGradient(
+                            width: 3,
+                            height: 3,
+                            points: [
+                                [0.0, 0.0], [0.5, 0.0], [1.0, 0.0],
+                                [0.0, 0.5], [0.9, 0.3], [1.0, 0.5],
+                                [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
+                            ],
+                            colors: [
+                                .white, .blue, .black,
+                                .cyan, .cyan, .teal,
+                                .teal, .teal, .white
+                            ]
+                        )
+                    )
+                
+                VStack(spacing: 4) {
+                    Text("\(diveCount)")
+                        .font(.system(size: 40, weight: .medium))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                    Text("Dives")
+                        .font(.system(.title, design: .default))
+                        .fontWeight(.heavy)
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                }
             }
+            .frame(width: 200, height: 200)
+            .padding(.vertical, 20)
+            
+            Text("\(speciesCount) Fish Logged")
+                .font(.system(.title3, design: .default))
+                .fontWeight(.heavy)
+                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
         }
-        .frame(width: 200, height: 200)
-        .padding(.vertical, 20)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            MeshGradient(
+                width: 3,
+                height: 3,
+                points: [
+                    [0.0, 0.0], [0.5, 0.0], [1.0, 0.0],
+                    [0.0, 0.5], [0.5, 0.5], [1.0, 0.5],
+                    [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
+                ],
+                colors: [
+                    .white, .white, .white,
+                    .cyan, .blue, .teal,
+                    .cyan, .cyan, .teal
+                ]
+            )
+        )
     }
 }
 
@@ -124,9 +163,8 @@ struct DiveEntryRowView: View {
             }
         }
         .padding()
-        .background(Color.white)
+        .background(.regularMaterial)
         .cornerRadius(12)
-        .shadow(color: Color.black.opacity(0.05), radius: 2, y: 1)
         
     }
 }
@@ -188,7 +226,6 @@ struct FlowResult {
                 currentRow = Row(y: y, height: 0, elements: [])
                 
             }
-            
             currentRow.elements.append(Element(x: x, size: size, view: subview))
             currentRow.height = max(currentRow.height, size.height)
             x += size.width + spacing
@@ -221,8 +258,6 @@ struct HomeView: View {
         sampleEntries.reduce(0) { $0 + $1.sightings.count }
     }
     
-
-    
     var body: some View {
         VStack {
             StatsCircleView(diveCount: totalEntries, speciesCount: totalSightings)
@@ -235,7 +270,24 @@ struct HomeView: View {
                     }
                 }
                 .padding(.horizontal)
+
             }
+            .background(
+                MeshGradient(
+                    width: 3,
+                    height: 3,
+                    points: [
+                        [0.0, 0.0], [0.5, 0.0], [1.0, 0.0],
+                        [0.0, 0.5], [0.9, 0.3], [1.0, 0.5],
+                        [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
+                    ],
+                    colors: [
+                        .teal, .blue, .cyan,
+                        .cyan, .blue, .blue,
+                        .blue, .cyan, .blue
+                    ]
+                )
+            )
             
             HStack {
                 Spacer()
@@ -252,17 +304,13 @@ struct HomeView: View {
                 }
                 .padding(.trailing, 30)
             }
-            .background(Color(white: 0.95))
             .navigationTitle("My Dives")
             .sheet(isPresented: $isLogging) {
                 DiveEntryView { NewEntry  in
                     sampleEntries.append(NewEntry)
-
                 }
             }
-
-     
-            
+        
         }
       
     }

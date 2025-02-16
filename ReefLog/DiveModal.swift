@@ -40,14 +40,6 @@ struct DiveEntryView: View {
                     TextField("Enter Time", text: $time)
                 }
                 
-                Section(header: Text("Depth")) {
-                    TextField("Enter Depth", text: $depth)
-                }
-                
-                Section(header: Text("Fish Sighting")) {
-                    TextField("Enter sighting (comma-separated)", text: $sightingsInput)
-                }
-                
                 Section(header: Text("Scuba Photos")) {
                     PhotosPicker(selection: $selectedItems, matching: .images, photoLibrary: .shared()) {
                         Label("Select Photos", systemImage: "fish.circle")
@@ -79,7 +71,7 @@ struct DiveEntryView: View {
             }
         }
         .onChange(of: selectedItems) { oldValue, newItems in
-            Task<Void, Never> {  // Explicitly specify the Task type
+            Task<Void, Never> {
                 var imagesWithLabels: [NamedImage] = []
                 for item in newItems {
                     if let data = try? await item.loadTransferable(type: Data.self),
@@ -95,6 +87,8 @@ struct DiveEntryView: View {
             }
         }
     }
+    
+    
     func classifyFish(image: UIImage) async -> String {
         // Resize image to reduce memory pressure
         do {
