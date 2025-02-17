@@ -30,7 +30,7 @@ struct StatsCircleView: View {
                             colors: [
                                 .white, .cyan, .blue,
                                 .cyan, .cyan, .teal,
-                                .teal, .teal, .white
+                                .teal, .teal, .green
                             ]
                         )
                     )
@@ -47,6 +47,9 @@ struct StatsCircleView: View {
             }
             .frame(width: 200, height: 200)
             .padding(.vertical, 20)
+            
+            
+            
             
             Text("\(speciesCount) Fish Logged")
                 .font(.system(.title3, design: .default))
@@ -65,8 +68,8 @@ struct StatsCircleView: View {
                 ],
                 colors: [
                     .white, .white, .white,
-                    .white, .white, .white,
-                    .cyan, .cyan, .teal
+                    .teal, .white, .teal,
+                    .cyan, .cyan, .cyan
                 ]
             )
         )
@@ -280,53 +283,25 @@ struct HomeView: View {
                     .padding(.horizontal)
 
             }
-            .background(
-                MeshGradient(
-                    width: 3,
-                    height: 3,
-                    points: [
-                        [0.0, 0.0], [0.5, 0.0], [1.0, 0.0],
-                        [0.0, 0.5], [0.9, 0.3], [1.0, 0.5],
-                        [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
-                    ],
-                    colors: [
-                        .cyan, .cyan, .teal,
-                        .cyan, .blue, .blue,
-                        .blue, .blue, .blue
-                    ]
-                )
-            )
+            .background(.cyan)
             
             HStack {
                 Spacer()
                 Button(action: {
                     isLogging = true 
                 }) {
-                    Image(systemName: "plus")
+                    Image(systemName: "fish")
                         .font(.title2)
                         .foregroundStyle(.white)
                         .frame(width: 50, height: 50)
-                        .background(.teal)
+                        .background(.blue)
                         .clipShape(Circle())
                         .shadow(radius: 2)
                 }
                 .padding(.trailing, 30)
                 
             }
-            .background(MeshGradient(
-                width: 3,
-                height: 3,
-                points: [
-                    [0.0, 0.5], [0.0, 0.0], [1.0, 0.0],
-                    [0.0, 0.5], [0.9, 0.3], [1.0, 0.5],
-                    [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
-                ],
-                colors: [
-                    .blue, .blue, .blue,
-                    .blue, .blue, .blue,
-                    .blue, .cyan, .blue
-                ]
-            ))
+            .background(.cyan)
             .sheet(isPresented: $isLogging) {
                 DiveEntryView { NewEntry  in
                     sampleEntries.append(NewEntry)

@@ -15,7 +15,8 @@ struct PhotoGridItem: View {
 
         Image(uiImage: image)
             .resizable()
-            .scaledToFill()
+            .aspectRatio(contentMode: .fill) 
+            .frame(width: 300, height: 300)
             .overlay(alignment: .bottom) {
                 HStack {
                     Text(name)

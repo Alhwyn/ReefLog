@@ -37,6 +37,7 @@ struct FishListView: View {
             database
         }
     }
+    
 }
 
 #Preview {

@@ -1,14 +1,12 @@
 import SwiftUI
 
-
-
-
 struct ContentView: View {
-
+    init() {
+        UITabBar.appearance().unselectedItemTintColor = UIColor.white.withAlphaComponent(0.7)
+        UITabBar.appearance().tintColor = UIColor.gray
+    }
     
     var body: some View {
-        
-        
         TabView {
             HomeView()
                 .tabItem {
@@ -21,7 +19,6 @@ struct ContentView: View {
             FishListView()
                 .tabItem {
                     Label("Scuba Guide", systemImage: "info.circle")
-                    
                 }
         }
         .background(.blue)

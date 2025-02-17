@@ -14,11 +14,10 @@ struct NamedImage: Identifiable {
 struct DiveEntryView: View {
     @Environment(\.dismiss) var dismiss
     @State private var location = ""
-    @State private var country = ""
     @State private var time = ""
     @State private var depth = ""
     @State private var sightingsInput = ""
-    
+    @State private var diveDate: Date = Date()
     
     @State private var selectedItems: [PhotosPickerItem] = []
     @State private var selectedImages: [NamedImage] = [] // Store image + name
@@ -30,28 +29,38 @@ struct DiveEntryView: View {
             ZStack {
                 Form {
                     
-                    // **Scuba Photos Section**
-                    if !selectedImages.isEmpty {
-                        PhotoGrid(images: selectedImages)
-                        
-                    }
+       
+                    PhotoGrid(images: selectedImages)
                     
-                    Section(header: Text("Scuba Photos")) {
+                    
+                    Section(header: Text("Scuba Photos").foregroundColor(.primary)) {
                         PhotosPicker(selection: $selectedItems, matching: .images, photoLibrary: .shared()) {
-                            Label("Select Photos", systemImage: "fish.circle")
+                            Label("Add Scuba Photos", systemImage: "fish.circle")
                         }
                     }
                     
-                    
-                    Section(header: Text("Dive Site")) {
-                        TextField("Enter Location", text: $location)
+                    Section(header: Text("Dive Details").foregroundStyle(.primary)) {
+                        HStack {
+                            Text("Date").foregroundStyle(.secondary)
+                            Spacer()
+                            DatePicker("", selection: $diveDate, displayedComponents: .date)
+                                .labelsHidden()
+                        }
+                        
+                        HStack {
+                                Image(systemName: "clock") // Time Icon
+                                    .foregroundStyle(.secondary)
+                                TextField("Enter Dive Time", text: $time)
+                            }
+                        
+                        HStack {
+                                Image(systemName: "ruler") // Depth Icon
+                                    .foregroundStyle(.secondary)
+                                TextField("Enter Depth (m)", text: $depth)
+                                    .keyboardType(.decimalPad)
+                            }
                     }
                     
-                    Section(header: Text("Dive Time")) {
-                        TextField("Enter Time", text: $time)
-                    }
-                    
-    
                 }
                 .scrollContentBackground(.hidden)
                 .background(.regularMaterial)
@@ -65,7 +74,7 @@ struct DiveEntryView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        let sightings = selectedImages.map { $0.name } // Get classified fish names
+                        let sightings = selectedImages.map { $0.name } 
                         let newEntry = DiveEntry(date: Date(), location: location, sightings: sightings)
                         onSave(newEntry)
                         dismiss()

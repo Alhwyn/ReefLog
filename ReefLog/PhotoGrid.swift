@@ -13,20 +13,37 @@ struct PhotoGrid: View {
     
     var body: some View {
         ScrollView(.horizontal) {
-            LazyHStack(spacing: 5) {
-                ForEach(images) { item in
+            LazyHStack(spacing: 0) {
+                
+                if images.isEmpty {
+                    
                     ZStack {
-                        PhotoGridItem(image: item.image, name: item.name)
-                            .scrollTransition(
-                                axis: .horizontal
-                            ) { content, phase in
-                                return content
-                                    .offset(x: phase.value * -270)
-                        }
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(.ultraThinMaterial)
+                            .frame(width: 300, height: 300)
+                        Text("No Photos")
+                            .foregroundStyle(.secondary)
                     }
-                    .containerRelativeFrame(.horizontal)
-                    .clipShape(RoundedRectangle(cornerRadius: 32))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    
+                } else {
+                    
+                    ForEach(images) { item in
+                        ZStack {
+                            PhotoGridItem(image: item.image, name: item.name)
+                                .scrollTransition(
+                                    axis: .horizontal
+                                ) { content, phase in
+                                    return content
+                                        .offset(x: phase.value * -270)
+                            }
+                        }
+                        .containerRelativeFrame(.horizontal)
+                        .clipShape(RoundedRectangle(cornerRadius: 32))
+                        .background(.clear)
+                    }
                 }
+                
             }
         }
         .scrollTargetBehavior(.paging)
