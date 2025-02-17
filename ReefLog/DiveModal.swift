@@ -5,7 +5,7 @@ import CoreML
 
 
 struct NamedImage: Identifiable {
-    let id = UUID() // Unique identifier
+    let id = UUID()
     let image: UIImage
     let name: String
 }
@@ -32,8 +32,7 @@ struct DiveEntryView: View {
        
                     PhotoGrid(images: selectedImages)
                     
-                    
-                    Section(header: Text("Scuba Photos").foregroundColor(.primary)) {
+                    Section(header: Text("Scuba Photos").foregroundStyle(.primary)) {
                         PhotosPicker(selection: $selectedItems, matching: .images, photoLibrary: .shared()) {
                             Label("Add Scuba Photos", systemImage: "fish.circle")
                         }
@@ -48,13 +47,13 @@ struct DiveEntryView: View {
                         }
                         
                         HStack {
-                                Image(systemName: "clock") // Time Icon
+                                Image(systemName: "clock")
                                     .foregroundStyle(.secondary)
                                 TextField("Enter Dive Time", text: $time)
                             }
                         
                         HStack {
-                                Image(systemName: "ruler") // Depth Icon
+                                Image(systemName: "ruler")
                                     .foregroundStyle(.secondary)
                                 TextField("Enter Depth (m)", text: $depth)
                                     .keyboardType(.decimalPad)
@@ -104,7 +103,7 @@ struct DiveEntryView: View {
     
     
     func classifyFish(image: UIImage) async -> String {
-        // Resize image to reduce memory pressure
+
         do {
             let config = MLModelConfiguration()
             let mlModel = try FishClassifier(configuration: config)

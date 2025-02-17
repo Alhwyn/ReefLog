@@ -98,7 +98,7 @@ struct DiveEntryRowView: View {
     
     func getColorForSpecies(_ species: String) -> Color {
         switch species {
-        case "Wrasse": return Color(red: 0.0, green: 0.5, blue: 1.0) // Blue
+        case "Wrasse": return Color(red: 0.0, green: 0.5, blue: 1.0)
         case "Triggerfish": return Color(red: 1.0, green: 0.75, blue: 0.2) // Yellowish
         case "Thresher Shark": return Color(red: 0.3, green: 0.3, blue: 0.3) // Dark Grey
         case "Starfish": return Color(red: 0.9, green: 0.4, blue: 0.3) // Orange-red
