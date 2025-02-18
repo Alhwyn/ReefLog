@@ -79,53 +79,26 @@ struct StatsCircleView: View {
 struct SightingTagView: View {
     
     let title: String
-    let backgroundColor: Color
     
     var body: some View {
         Text(title)
-            .font(.system(size: 14))
-            .foregroundStyle(.white)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 6)
-            .background(backgroundColor)
-            .cornerRadius(15)
-            
+            .font(.system(size: 16)) // Bolder font
+            .foregroundStyle(Color(red: 0.0, green: 0.2, blue: 0.4))
+            .padding(.horizontal, 14)
+            .padding(.vertical, 7)
+            .background(
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(Color.teal.opacity(0.3))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Color.white.opacity(0.3), lineWidth: 1) // Soft border
+            )
     }
 }
 
 struct DiveEntryRowView: View {
     let entry: DiveEntry
-    
-    func getColorForSpecies(_ species: String) -> Color {
-        switch species {
-        case "Wrasse": return Color(red: 0.0, green: 0.5, blue: 1.0)
-        case "Triggerfish": return Color(red: 1.0, green: 0.75, blue: 0.2) // Yellowish
-        case "Thresher Shark": return Color(red: 0.3, green: 0.3, blue: 0.3) // Dark Grey
-        case "Starfish": return Color(red: 0.9, green: 0.4, blue: 0.3) // Orange-red
-        case "Sponge": return Color(red: 1.0, green: 0.9, blue: 0.5) // Pale Yellow
-        case "Sea Horse": return Color(red: 0.9, green: 0.7, blue: 0.4) // Golden
-        case "Sea Fans": return Color(red: 0.7, green: 0.3, blue: 0.7) // Purple
-        case "Scuba Diver": return Color(red: 0.0, green: 0.0, blue: 0.0) // Black
-        case "Pufferfish": return Color(red: 1.0, green: 0.9, blue: 0.6) // Pale Beige
-        case "Parrot Fish": return Color(red: 0.0, green: 0.8, blue: 1.0) // Turquoise
-        case "Octopus": return Color(red: 0.5, green: 0.0, blue: 0.5) // Deep Purple
-        case "Nudibranch": return Color(red: 0.9, green: 0.2, blue: 0.5) // Bright Pinkish
-        case "Moray Eel": return Color(red: 0.3, green: 0.4, blue: 0.2) // Olive Green
-        case "Manta Ray": return Color(red: 0.4, green: 0.4, blue: 0.5) // Slate Grey
-        case "Lionfish": return Color(red: 0.8, green: 0.3, blue: 0.2)
-        case "Groupers": return Color(red: 0.5, green: 0.4, blue: 0.3) // Brownish
-        case "Green Turtle": return Color(red: 0.4, green: 0.8, blue: 0.4) // Green
-        case "Frog Fish": return Color(red: 0.9, green: 0.7, blue: 0.2) // Yellowish-Orange
-        case "Feather Star": return Color(red: 0.9, green: 0.6, blue: 0.4) // Coral
-        case "Cow Fish": return Color(red: 0.7, green: 0.6, blue: 0.3) // Mustard Yellow
-        case "Clown Fish": return Color(red: 1.0, green: 0.55, blue: 0.0) // Orange
-        case "Butterfly Fish": return Color(red: 1.0, green: 0.9, blue: 0.3) // Lemon Yellow
-        case "Brain Coral": return Color(red: 0.8, green: 0.6, blue: 0.5) // Sandy Pink
-        case "Banded Sea Snake": return Color(red: 0.1, green: 0.1, blue: 0.1)
-        case "Angel Fish": return Color(red: 0.5, green: 0.7, blue: 1.0) // Light Blue  
-        default: return .gray
-        }
-    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -136,6 +109,7 @@ struct DiveEntryRowView: View {
                         .foregroundColor(.gray)
                     Text(entry.date, style: .date)
                         .font(.system(size: 16))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
                 }
                 
                 Spacer()
@@ -146,6 +120,8 @@ struct DiveEntryRowView: View {
                         .foregroundColor(.gray)
                     Text(entry.location)
                         .font(.system(size: 16))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                    
                 }
                 
             }
@@ -158,8 +134,7 @@ struct DiveEntryRowView: View {
                 FlowLayout(spacing: 4) {
                     ForEach(entry.sightings, id: \.self) { species in
                         SightingTagView(
-                            title: species,
-                            backgroundColor: getColorForSpecies(species)
+                            title: species
                         )
                     }
                 }

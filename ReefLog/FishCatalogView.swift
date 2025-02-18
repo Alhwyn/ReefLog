@@ -49,7 +49,7 @@ struct FishListView: View {
                         
                     }
                 }
-                .scrollContentBackground(.hidden) // Hide the default List background
+                .scrollContentBackground(.hidden) 
                 .listStyle(InsetGroupedListStyle())
                 .navigationTitle("Fish Catalog")
             }

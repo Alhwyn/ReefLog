@@ -1,8 +1,5 @@
 import SwiftUI
 import PhotosUI
-import Vision
-import CoreML
-
 
 struct NamedImage: Identifiable {
     let id = UUID()
@@ -19,8 +16,10 @@ struct DiveEntryView: View {
     @State private var sightingsInput = ""
     @State private var diveDate: Date = Date()
     
+    @State private var fishClassifier: FishClassifierModel? = FishClassifierModel()
+    
     @State private var selectedItems: [PhotosPickerItem] = []
-    @State private var selectedImages: [NamedImage] = [] // Store image + name
+    @State private var selectedImages: [NamedImage] = [] 
     
     var onSave: (DiveEntry) -> Void
     
@@ -37,6 +36,7 @@ struct DiveEntryView: View {
                             Label("Add Scuba Photos", systemImage: "fish.circle")
                         }
                     }
+                    
                     
                     Section(header: Text("Dive Details").foregroundStyle(.primary)) {
                         HStack {
@@ -83,14 +83,18 @@ struct DiveEntryView: View {
             }
         }
         .onChange(of: selectedItems) { oldValue, newItems in
-            Task<Void, Never> {
+            Task {
                 var imagesWithLabels: [NamedImage] = []
+                // Ensure the classifier is available
+                guard let classifier = fishClassifier else {
+                    print("Fish classifier not available")
+                    return
+                }
                 for item in newItems {
                     if let data = try? await item.loadTransferable(type: Data.self),
                        let uiImage = UIImage(data: data) {
-                        let resizedImage = uiImage.resized(to: CGSize(width: 800, height: 800))
-                        let predictedFish = await classifyFish(image: resizedImage)
-                        imagesWithLabels.append(NamedImage(image: resizedImage, name: predictedFish))
+                        let predictedFish = await classifier.classifyFish(image: uiImage)
+                        imagesWithLabels.append(NamedImage(image: uiImage, name: predictedFish))
                     }
                 }
                 await MainActor.run {
@@ -101,57 +105,6 @@ struct DiveEntryView: View {
         .presentationBackground(.ultraThinMaterial)
     }
     
-    
-    func classifyFish(image: UIImage) async -> String {
-
-        do {
-            let config = MLModelConfiguration()
-            let mlModel = try FishClassifier(configuration: config)
-            let model = try VNCoreMLModel(for: mlModel.model)
-            
-            return await withCheckedContinuation { continuation in
-                var hasResumed = false // Flag to ensure continuation is resumed only once
-                
-                let request = VNCoreMLRequest(model: model) { request, error in
-                    defer {
-                        if !hasResumed {
-                            continuation.resume(returning: "Unknown") // Ensure continuation is always resumed
-                            hasResumed = true
-                        }
-                    }
-                    
-                    if let error = error {
-                        print("Vision error: \(error.localizedDescription)")
-                        return
-                    }
-                    
-                    guard let results = request.results as? [VNClassificationObservation],
-                          !results.isEmpty else {
-                        return
-                    }
-                    
-                    continuation.resume(returning: results[0].identifier)
-                    hasResumed = true
-                }
-                
-                guard let ciImage = CIImage(image: image) else {
-                    continuation.resume(returning: "Unknown")
-                    hasResumed = true
-                    return
-                }
-                
-                let handler = VNImageRequestHandler(ciImage: ciImage)
-                do {
-                    try handler.perform([request])
-                } catch {
-                    print("Error performing Vision request: \(error)")
-                }
-            }
-        } catch {
-            print("Error initializing ML model: \(error)")
-            return "Unknown"
-        }
-    }
 }
 
 

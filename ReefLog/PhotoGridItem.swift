@@ -20,7 +20,7 @@ struct PhotoGridItem: View {
             .overlay(alignment: .bottom) {
                 HStack {
                     Text(name)
-                        .font(.largeTitle)
+                        .font(.headline)
                     Spacer()
 
                 }
