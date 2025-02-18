@@ -18,7 +18,7 @@ struct PhotoGrid: View {
                 if images.isEmpty {
                     
                     ZStack {
-                        RoundedRectangle(cornerRadius: 16)
+                        RoundedRectangle(cornerRadius: 12)
                             .fill(.ultraThinMaterial)
                             .frame(width: 300, height: 300)
                         Text("No Photos")

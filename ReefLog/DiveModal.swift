@@ -19,7 +19,7 @@ struct DiveEntryView: View {
     @State private var fishClassifier: FishClassifierModel? = FishClassifierModel()
     
     @State private var selectedItems: [PhotosPickerItem] = []
-    @State private var selectedImages: [NamedImage] = [] 
+    @State private var selectedImages: [NamedImage] = []
     
     var onSave: (DiveEntry) -> Void
     
@@ -27,7 +27,6 @@ struct DiveEntryView: View {
         NavigationView {
             ZStack {
                 Form {
-                    
        
                     PhotoGrid(images: selectedImages)
                     
@@ -73,7 +72,7 @@ struct DiveEntryView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        let sightings = selectedImages.map { $0.name } 
+                        let sightings = selectedImages.map { $0.name }
                         let newEntry = DiveEntry(date: Date(), location: location, sightings: sightings)
                         onSave(newEntry)
                         dismiss()
