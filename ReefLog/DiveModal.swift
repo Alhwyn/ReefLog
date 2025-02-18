@@ -84,16 +84,18 @@ struct DiveEntryView: View {
         .onChange(of: selectedItems) { oldValue, newItems in
             Task {
                 var imagesWithLabels: [NamedImage] = []
-                // Ensure the classifier is available
+                
                 guard let classifier = fishClassifier else {
                     print("Fish classifier not available")
                     return
                 }
+   
                 for item in newItems {
                     if let data = try? await item.loadTransferable(type: Data.self),
                        let uiImage = UIImage(data: data) {
                         let predictedFish = await classifier.classifyFish(image: uiImage)
                         imagesWithLabels.append(NamedImage(image: uiImage, name: predictedFish))
+
                     }
                 }
                 await MainActor.run {
@@ -106,14 +108,6 @@ struct DiveEntryView: View {
     
 }
 
-
-extension UIImage {
-    func resized(to size: CGSize) -> UIImage {
-        UIGraphicsImageRenderer(size: size).image { _ in
-            draw(in: CGRect(origin: .zero, size: size))
-        }
-    }
-}
 
 #Preview {
     DiveEntryView(onSave: { _ in })
