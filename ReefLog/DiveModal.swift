@@ -7,6 +7,20 @@ struct NamedImage: Identifiable {
     let name: String
 }
 
+struct fishSelected: Identifiable, Hashable {
+    let id = UUID()
+    let fishName: String
+
+
+    static func == (lhs: fishSelected, rhs: fishSelected) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
 
 struct DiveEntryView: View {
     @Environment(\.dismiss) var dismiss
@@ -20,6 +34,8 @@ struct DiveEntryView: View {
     
     @State private var selectedItems: [PhotosPickerItem] = []
     @State private var selectedImages: [NamedImage] = []
+    @State private var fishSelectedList: [fishSelected] = []
+    
     
     var onSave: (DiveEntry) -> Void
     
@@ -30,12 +46,14 @@ struct DiveEntryView: View {
        
                     PhotoGrid(images: selectedImages)
                     
+                    DiveModalRowView(fishList: fishSelectedList)
+                    
+                    
                     Section(header: Text("Scuba Photos").foregroundStyle(.primary)) {
                         PhotosPicker(selection: $selectedItems, matching: .images, photoLibrary: .shared()) {
                             Label("Add Scuba Photos", systemImage: "fish.circle")
                         }
                     }
-                    
                     
                     Section(header: Text("Dive Details").foregroundStyle(.primary)) {
                         HStack {
@@ -84,6 +102,7 @@ struct DiveEntryView: View {
         .onChange(of: selectedItems) { oldValue, newItems in
             Task {
                 var imagesWithLabels: [NamedImage] = []
+                var fish: [fishSelected] = []
                 
                 guard let classifier = fishClassifier else {
                     print("Fish classifier not available")
@@ -95,11 +114,13 @@ struct DiveEntryView: View {
                        let uiImage = UIImage(data: data) {
                         let predictedFish = await classifier.classifyFish(image: uiImage)
                         imagesWithLabels.append(NamedImage(image: uiImage, name: predictedFish))
-
+                        fish.append(fishSelected(fishName: predictedFish))
                     }
                 }
                 await MainActor.run {
                     selectedImages = imagesWithLabels
+                    fishSelectedList = fish
+                    
                 }
             }
         }
