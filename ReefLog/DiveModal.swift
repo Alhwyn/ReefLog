@@ -7,34 +7,20 @@ struct NamedImage: Identifiable {
     let name: String
 }
 
-struct fishSelected: Identifiable, Hashable {
-    let id = UUID()
-    let fishName: String
-
-
-    static func == (lhs: fishSelected, rhs: fishSelected) -> Bool {
-        lhs.id == rhs.id
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-}
-
 
 struct DiveEntryView: View {
     @Environment(\.dismiss) var dismiss
     @State private var location = ""
     @State private var time = ""
     @State private var depth = ""
-    @State private var sightingsInput = ""
     @State private var diveDate: Date = Date()
     
     @State private var fishClassifier: FishClassifierModel? = FishClassifierModel()
     
     @State private var selectedItems: [PhotosPickerItem] = []
     @State private var selectedImages: [NamedImage] = []
-    @State private var fishSelectedList: [fishSelected] = []
+    @State private var fishSelectedList: [String] = []
+    
     
     
     var onSave: (DiveEntry) -> Void
@@ -43,9 +29,10 @@ struct DiveEntryView: View {
         NavigationView {
             ZStack {
                 Form {
-       
-                    PhotoGrid(images: selectedImages)
                     
+                    PhotoGrid(images: selectedImages)
+
+                       
                     DiveModalRowView(fishList: fishSelectedList)
                     
                     
@@ -64,17 +51,24 @@ struct DiveEntryView: View {
                         }
                         
                         HStack {
-                                Image(systemName: "clock")
-                                    .foregroundStyle(.secondary)
-                                TextField("Enter Dive Time", text: $time)
-                            }
+                            Image(systemName: "map.fill")
+                                .foregroundStyle(.secondary)
+                            TextField("Location", text: $location)
+                                .keyboardType(.decimalPad)
+                        }
                         
                         HStack {
-                                Image(systemName: "ruler")
-                                    .foregroundStyle(.secondary)
-                                TextField("Enter Depth (m)", text: $depth)
-                                    .keyboardType(.decimalPad)
-                            }
+                            Image(systemName: "clock")
+                                .foregroundStyle(.secondary)
+                            TextField("Enter Dive Time", text: $time)
+                        }
+                        
+                        HStack {
+                            Image(systemName: "ruler")
+                                .foregroundStyle(.secondary)
+                            TextField("Enter Depth (m)", text: $depth)
+                                .keyboardType(.decimalPad)
+                        }
                     }
                     
                 }
@@ -90,8 +84,8 @@ struct DiveEntryView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        let sightings = selectedImages.map { $0.name }
-                        let newEntry = DiveEntry(date: Date(), location: location, sightings: sightings)
+                        _ = selectedImages.map { $0.name }
+                        let newEntry = DiveEntry(date: diveDate, location: location, sightings: fishSelectedList)
                         onSave(newEntry)
                         dismiss()
                     }
@@ -102,7 +96,7 @@ struct DiveEntryView: View {
         .onChange(of: selectedItems) { oldValue, newItems in
             Task {
                 var imagesWithLabels: [NamedImage] = []
-                var fish: [fishSelected] = []
+                var fish: [String] = []
                 
                 guard let classifier = fishClassifier else {
                     print("Fish classifier not available")
@@ -114,7 +108,7 @@ struct DiveEntryView: View {
                        let uiImage = UIImage(data: data) {
                         let predictedFish = await classifier.classifyFish(image: uiImage)
                         imagesWithLabels.append(NamedImage(image: uiImage, name: predictedFish))
-                        fish.append(fishSelected(fishName: predictedFish))
+                        fish.append(predictedFish)
                     }
                 }
                 await MainActor.run {

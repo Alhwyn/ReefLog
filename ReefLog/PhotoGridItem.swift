@@ -12,24 +12,18 @@ struct PhotoGridItem: View {
     let name: String
     
     var body: some View {
-
         Image(uiImage: image)
             .resizable()
-            .aspectRatio(contentMode: .fill) 
+            .aspectRatio(contentMode: .fill)
             .frame(width: 300, height: 300)
+            .clipped()
             .overlay(alignment: .bottom) {
-                HStack {
-                    Text(name)
-                        .font(.headline)
-                    Spacer()
-
-                }
-                .multilineTextAlignment(.center)
-                .background(.thinMaterial)
-                
+                Text(name)
+                    .font(.subheadline)
+                    .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                    .frame(maxWidth: .infinity) // ✅ Ensures text spans the full width
+                    .background(.thinMaterial)
+                    .multilineTextAlignment(.center)
             }
-            
-            
-        
     }
 }

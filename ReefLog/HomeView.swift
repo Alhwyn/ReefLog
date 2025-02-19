@@ -29,7 +29,7 @@ struct StatsCircleView: View {
                         )
                     )
                 
-                VStack(spacing: 4) {
+                VStack(spacing: 0) {
                     Text("\(diveCount)")
                         .font(.system(size: 40, weight: .medium))
                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
@@ -73,12 +73,7 @@ struct StatsCircleView: View {
 struct HomeView: View {
 
     @State private var isLogging = false
-    @State private var sampleEntries: [DiveEntry] = [
-        DiveEntry(date: Date(), location: "Philippines Kontiki Reef", sightings: ["Thresher Shark", "Wrasse", "Clown Fish", "Green Turtle"]),
-        DiveEntry(date: Date(), location: "Philippines Kontiki Reef", sightings: ["Thresher Shark", "Wrasse", "Clown Fish", "Green Turtle"]),
-        DiveEntry(date: Date(), location: "Philippines Kontiki Reef", sightings: ["Thresher Shark", "Wrasse", "Clown Fish", "Green Turtle"]),
-
-    ]
+    @State private var sampleEntries: [DiveEntry] = []
     
     var totalEntries: Int {
         sampleEntries.count
@@ -93,7 +88,20 @@ struct HomeView: View {
             StatsCircleView(diveCount: totalEntries, speciesCount: totalSightings)
             
             ScrollView {
-                LazyVStack(spacing: 12) {
+                if sampleEntries.isEmpty {
+                    VStack(spacing: 10) {
+                        Image(systemName: "fish.fill")
+                            .font(.system(size: 50))
+                            .foregroundColor(.blue)
+                        
+                        Text("No Fish Found")
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    LazyVStack(spacing: 12) {
                         ForEach(sampleEntries) { entry in
                             DiveEntryRowView(entry: entry)
                                 .scrollTransition(.animated.threshold(.visible(0.7))) { content, phase in
@@ -105,16 +113,16 @@ struct HomeView: View {
                         }
                     }
                     .padding(.horizontal)
-
+                }
             }
             .background(.cyan)
             
             HStack {
                 Spacer()
                 Button(action: {
-                    isLogging = true 
+                    isLogging = true
                 }) {
-                    Image(systemName: "fish")
+                    Image(systemName: "plus")
                         .font(.title2)
                         .foregroundStyle(.white)
                         .frame(width: 50, height: 50)
@@ -123,17 +131,14 @@ struct HomeView: View {
                         .shadow(radius: 2)
                 }
                 .padding(.trailing, 30)
-                
             }
             .background(.cyan)
             .sheet(isPresented: $isLogging) {
-                DiveEntryView { NewEntry  in
+                DiveEntryView { NewEntry in
                     sampleEntries.append(NewEntry)
                 }
             }
-        
         }
-      
     }
 }
 
