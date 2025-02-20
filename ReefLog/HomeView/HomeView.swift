@@ -61,7 +61,7 @@ struct StatsCircleView: View {
                     [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
                 ],
                 colors: [
-                    .white, .white, .white,
+                    .teal, .teal, .teal,
                     .teal, .white, .teal,
                     .cyan, .cyan, .cyan
                 ]
@@ -84,58 +84,61 @@ struct HomeView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
-            StatsCircleView(diveCount: totalEntries, speciesCount: totalSightings)
+        ZStack {
+            Color.teal
+                .ignoresSafeArea()
             
-            ScrollView {
-                if sampleEntries.isEmpty {
-                    VStack(spacing: 10) {
-                        Image(systemName: "fish.fill")
-                            .font(.system(size: 50))
-                            .foregroundColor(.blue)
-                        
-                        Text("No Fish Found")
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                            .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                } else {
-                    LazyVStack(spacing: 12) {
-                        ForEach(sampleEntries) { entry in
-                            DiveEntryRowView(entry: entry)
-                                .scrollTransition(.animated.threshold(.visible(0.7))) { content, phase in
-                                    content
-                                        .opacity(phase.isIdentity ? 1 : 0)
-                                        .scaleEffect(phase.isIdentity ? 1 : 0.25)
-                                        .blur(radius: phase.isIdentity ? 0 : 12)
-                                }
+            VStack(spacing: 0) {
+                StatsCircleView(diveCount: totalEntries, speciesCount: totalSightings)
+                
+                ScrollView {
+                    if sampleEntries.isEmpty {
+                        VStack(spacing: 10) {
+                            Text("No Fish Found")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
                         }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    } else {
+                        LazyVStack(spacing: 12) {
+                            ForEach(sampleEntries) { entry in
+                                DiveEntryRowView(entry: entry)
+                                    .scrollTransition(.animated.threshold(.visible(0.7))) { content, phase in
+                                        content
+                                            .opacity(phase.isIdentity ? 1 : 0)
+                                            .scaleEffect(phase.isIdentity ? 1 : 0.25)
+                                            .blur(radius: phase.isIdentity ? 0 : 12)
+                                    }
+                            }
+                        }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
                 }
-            }
-            .background(.cyan)
-            
-            HStack {
-                Spacer()
-                Button(action: {
-                    isLogging = true
-                }) {
-                    Image(systemName: "plus")
-                        .font(.title2)
-                        .foregroundStyle(.white)
-                        .frame(width: 50, height: 50)
-                        .background(.blue)
-                        .clipShape(Circle())
-                        .shadow(radius: 2)
+                
+                .background(.cyan)
+                
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        isLogging = true
+                    }) {
+                        Image(systemName: "plus")
+                            .font(.title2)
+                            .foregroundStyle(.white)
+                            .frame(width: 50, height: 50)
+                            .background(.blue)
+                            .clipShape(Circle())
+                            .shadow(radius: 2)
+                    }
+                    .padding(.trailing, 30)
                 }
-                .padding(.trailing, 30)
-            }
-            .background(.cyan)
-            .sheet(isPresented: $isLogging) {
-                DiveEntryView { NewEntry in
-                    sampleEntries.append(NewEntry)
+                .background(.cyan)
+                
+                .sheet(isPresented: $isLogging) {
+                    DiveEntryView { NewEntry in
+                        sampleEntries.append(NewEntry)
+                    }
                 }
             }
         }
