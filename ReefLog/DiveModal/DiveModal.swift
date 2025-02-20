@@ -14,12 +14,12 @@ struct DiveEntryView: View {
     @State private var time = ""
     @State private var depth = ""
     @State private var diveDate: Date = Date()
-    
-    @State private var fishClassifier: FishClassifierModel? = FishClassifierModel()
-    
+
     @State private var selectedItems: [PhotosPickerItem] = []
     @State private var selectedImages: [NamedImage] = []
     @State private var fishSelectedList: [String] = []
+    
+    @State private var fishClassifier: FishClassifierModel? = FishClassifierModel()
     
     
     

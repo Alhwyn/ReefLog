@@ -21,7 +21,7 @@ struct PhotoGridItem: View {
                 Text(name)
                     .font(.subheadline)
                     .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
-                    .frame(maxWidth: .infinity) // ✅ Ensures text spans the full width
+                    .frame(maxWidth: .infinity) //
                     .background(.thinMaterial)
                     .multilineTextAlignment(.center)
             }
