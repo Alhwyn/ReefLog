@@ -7,21 +7,18 @@ struct NamedImage: Identifiable {
     let name: String
 }
 
-
 struct DiveEntryView: View {
     @Environment(\.dismiss) var dismiss
     @State private var location = ""
     @State private var time = ""
     @State private var depth = ""
     @State private var diveDate: Date = Date()
-
+    
     @State private var selectedItems: [PhotosPickerItem] = []
     @State private var selectedImages: [NamedImage] = []
     @State private var fishSelectedList: [String] = []
     
     @State private var fishClassifier: FishClassifierModel? = FishClassifierModel()
-    
-    
     
     var onSave: (DiveEntry) -> Void
     
@@ -29,12 +26,8 @@ struct DiveEntryView: View {
         NavigationView {
             ZStack {
                 Form {
-                    
                     PhotoGrid(images: selectedImages)
-
-                       
                     DiveModalRowView(fishList: fishSelectedList)
-                    
                     
                     Section(header: Text("Scuba Photos").foregroundStyle(.primary)) {
                         PhotosPicker(selection: $selectedItems, matching: .images, photoLibrary: .shared()) {
@@ -70,7 +63,6 @@ struct DiveEntryView: View {
                                 .keyboardType(.decimalPad)
                         }
                     }
-                    
                 }
                 .scrollContentBackground(.hidden)
                 .background(.regularMaterial)
@@ -84,7 +76,6 @@ struct DiveEntryView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        _ = selectedImages.map { $0.name }
                         let newEntry = DiveEntry(date: diveDate, location: location, sightings: fishSelectedList)
                         onSave(newEntry)
                         dismiss()
@@ -92,39 +83,34 @@ struct DiveEntryView: View {
                     .disabled(location.isEmpty || selectedImages.isEmpty)
                 }
             }
-        }
-        .onChange(of: selectedItems) { oldValue, newItems in
-            Task {
-                var imagesWithLabels: [NamedImage] = []
-                var fish: [String] = []
-                
-                guard let classifier = fishClassifier else {
-                    print("Fish classifier not available")
-                    return
-                }
-   
-                for item in newItems {
-                    if let data = try? await item.loadTransferable(type: Data.self),
-                       let uiImage = UIImage(data: data) {
-                        let predictedFish = await classifier.classifyFish(image: uiImage)
-                        imagesWithLabels.append(NamedImage(image: uiImage, name: predictedFish))
-                        fish.append(predictedFish)
+            .onChange(of: selectedItems) { _, newItems in
+                Task { @MainActor in
+                    var imagesWithLabels: [NamedImage] = []
+                    var fish: [String] = []
+                    
+                    guard let classifier = fishClassifier else {
+                        print("Fish classifier not available")
+                        return
                     }
-                }
-                await MainActor.run {
+                    
+                    for item in newItems {
+                        if let data = try? await item.loadTransferable(type: Data.self),
+                           let uiImage = UIImage(data: data) {
+                            let predictedFish = await classifier.classifyFishVision(image: uiImage)
+                            imagesWithLabels.append(NamedImage(image: uiImage, name: predictedFish))
+                            fish.append(predictedFish)
+                        }
+                    }
+                    
                     selectedImages = imagesWithLabels
                     fishSelectedList = fish
-                    
                 }
             }
+            .presentationBackground(.ultraThinMaterial)
         }
-        .presentationBackground(.ultraThinMaterial)
     }
-    
 }
-
 
 #Preview {
     DiveEntryView(onSave: { _ in })
 }
-

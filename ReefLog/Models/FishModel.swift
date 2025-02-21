@@ -1,26 +1,85 @@
 import CoreML
+import Vision
 import SwiftUI
 
 class FishClassifierModel {
+    private let coreMLModel: Minnow_1
+    private let visionModel: VNCoreMLModel
     
-    func classifyFish(image: UIImage) async -> String {
-        // Resize the image to 299x299
-        let resizedImage = image.resizeImageTo(size: CGSize(width: 299, height: 299))
+    init() {
+        do {
+            let config = MLModelConfiguration()
+            self.coreMLModel = try Minnow_1(configuration: config)
+            self.visionModel = try VNCoreMLModel(for: coreMLModel.model)
+            
+            // Log model input details
+            if let inputs = coreMLModel.model.modelDescription.inputDescriptionsByName["image"] {
+                print("Model input: \(inputs)")
+            } else {
+                print("No input named 'image' found")
+            }
+        } catch {
+            fatalError("Failed to load Minnow_1 model: \(error.localizedDescription)")
+        }
+    }
+    
+    // Original Core ML approach
+    func classifyFishCoreML(image: UIImage) async -> String {
+        guard let resizedImage = image.resizeImageTo(size: CGSize(width: 299, height: 299)) else {
+            print("Resize failed")
+            return "Unknown"
+        }
         
-        // Use the CIContext-based function to convert the image to a CVPixelBuffer.
-        guard let cvPixelBuffer = resizedImage?.convertToBuffer(saveToFile: true) else {
+        guard let pixelBuffer = resizedImage.convertToBuffer() else {
+            print("Buffer conversion failed")
             return "Unknown"
         }
         
         do {
-            let model = try Minnow_1(configuration: MLModelConfiguration())
-            let prediction = try model.prediction(image: cvPixelBuffer)
-            print(prediction.target)
+            let prediction = try coreMLModel.prediction(image: pixelBuffer)
+            print("Core ML Prediction: \(prediction.target)")
             return prediction.target
-        } catch let error {
-            print(error.localizedDescription)
+        } catch {
+            print("Core ML Prediction failed: \(error.localizedDescription)")
             return "Unknown"
         }
     }
+    
+    // Vision approach
+    func classifyFishVision(image: UIImage) async -> String {
+        guard let resizedImage = image.resizeImageTo(size: CGSize(width: 299, height: 299)) else {
+            print("Resize failed")
+            return "Unknown"
+        }
+        
+        guard let cgImage = resizedImage.cgImage else {
+            print("Failed to get CGImage")
+            return "Unknown"
+        }
+        
+        let request = VNCoreMLRequest(model: visionModel) { request, error in
+            if let error = error {
+                print("Vision request failed: \(error.localizedDescription)")
+            }
+        }
+        
+        let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
+        
+        return await withCheckedContinuation { continuation in
+            do {
+                try handler.perform([request])
+                guard let results = request.results as? [VNClassificationObservation],
+                      let topResult = results.first else {
+                    print("No classification results")
+                    continuation.resume(returning: "Unknown")
+                    return
+                }
+                print("Vision prediction: \(topResult.identifier)")
+                continuation.resume(returning: topResult.identifier)
+            } catch {
+                print("Vision perform failed: \(error.localizedDescription)")
+                continuation.resume(returning: "Unknown")
+            }
+        }
+    }
 }
-
