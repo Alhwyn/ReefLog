@@ -11,7 +11,10 @@ struct DiveEntry: Identifiable {
     let date: Date
     let location: String
     let sightings: [String]
+    //let depth: String
+    //let diveTime: String
 }
+
 
 
 struct SightingTagView: View {

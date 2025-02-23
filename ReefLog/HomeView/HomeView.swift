@@ -27,34 +27,33 @@ struct StatsCircleView: View {
                                 .cyan, .cyan, .teal,
                                 .teal, .teal, .green
                             ]
-                        )
+                        ).opacity(0.4)
                     )
                 
                 VStack(spacing: 0) {
                     Text("\(diveCount)")
-                        .font(.system(size: 40, weight: .medium))
+                        .font(.system(size: 80, weight: .medium))
                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
                     Text("Dives")
-                        .font(.system(.title, design: .default))
                         .fontWeight(.heavy)
                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
                 }
             }
             .frame(width: 200, height: 200)
-            .padding(.vertical, 5)
+            .padding(.vertical, 10)
             
             HStack {
                 HStack(spacing: 10) {
                     Image(systemName: "fish")
                         .font(.system(size: 40))
-                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
                         VStack(spacing: 6) {
                             Text("\(speciesCount)")
                                 .font(.system(size: 30, weight: .bold, design: .default))
-                                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
                             Text("Fish Logged")
                                 .font(.system(size: 12, weight: .medium, design: .default))
-                                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
                     }
                 }
                 .frame(width: 170, height: 90)
@@ -68,10 +67,10 @@ struct StatsCircleView: View {
                 VStack(spacing: 6) {
                     Text("79m")
                         .font(.system(size: 30, weight: .bold, design: .default))
-                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
-                    Text("Max Depth")
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
+                    Text("Maximum Depth")
                         .font(.system(size: 12, weight: .medium, design: .default))
-                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
                 }
                 .frame(width: 90, height: 90)
                 .background(
@@ -85,10 +84,10 @@ struct StatsCircleView: View {
                 VStack(spacing: 6) {
                     Text("40h")
                         .font(.system(size: 30, weight: .bold, design: .default))
-                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
-                    Text("Submerged Time")
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
+                    Text("Total Underwater")
                         .font(.system(size: 12, weight: .medium, design: .default))
-                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
                 }
                 .frame(width: 90, height: 90)
                 .background(
@@ -98,7 +97,7 @@ struct StatsCircleView: View {
                 .cornerRadius(20)
                 .shadow(color: .teal.opacity(0.1), radius: 5, x: 0, y: 2)
             }
-            .padding(12)
+
             
 
             
@@ -150,9 +149,8 @@ struct HomeView: View {
                     if sampleEntries.isEmpty {
                         VStack(spacing: 10) {
                             Text("No Fish Found")
-                                .font(.title3)
                                 .fontWeight(.semibold)
-                                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.5))
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else {
