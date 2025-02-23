@@ -25,8 +25,6 @@ struct FishListView: View {
                 
 
     
-                 
-                
                 List {
                     ForEach(database.fishList) { fish in
                         ZStack {
