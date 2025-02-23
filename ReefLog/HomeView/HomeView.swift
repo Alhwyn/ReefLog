@@ -7,6 +7,7 @@ import SwiftUI
 struct StatsCircleView: View {
     let diveCount: Int
     let speciesCount: Int
+    //let maxDepth: Int
     
     var body: some View {
         VStack {
@@ -40,15 +41,69 @@ struct StatsCircleView: View {
                 }
             }
             .frame(width: 200, height: 200)
-            .padding(.vertical, 20)
+            .padding(.vertical, 5)
+            
+            HStack {
+                HStack(spacing: 10) {
+                    Image(systemName: "fish")
+                        .font(.system(size: 40))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                        VStack(spacing: 6) {
+                            Text("\(speciesCount)")
+                                .font(.system(size: 30, weight: .bold, design: .default))
+                                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                            Text("Fish Logged")
+                                .font(.system(size: 12, weight: .medium, design: .default))
+                                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                    }
+                }
+                .frame(width: 170, height: 90)
+                .background(
+                    Color.teal.opacity(0.2)
+                        .overlay(.ultraThinMaterial)
+                )
+                .cornerRadius(20)
+                .shadow(color: .teal.opacity(0.1), radius: 5, x: 0, y: 2)
+                
+                VStack(spacing: 6) {
+                    Text("79m")
+                        .font(.system(size: 30, weight: .bold, design: .default))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                    Text("Max Depth")
+                        .font(.system(size: 12, weight: .medium, design: .default))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                }
+                .frame(width: 90, height: 90)
+                .background(
+                    Color.teal.opacity(0.2)
+                        .overlay(.ultraThinMaterial)
+                )
+                .cornerRadius(20)
+                .shadow(color: .teal.opacity(0.1), radius: 5, x: 0, y: 2)
+            
+                
+                VStack(spacing: 6) {
+                    Text("40h")
+                        .font(.system(size: 30, weight: .bold, design: .default))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                    Text("Submerged Time")
+                        .font(.system(size: 12, weight: .medium, design: .default))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                }
+                .frame(width: 90, height: 90)
+                .background(
+                    Color.teal.opacity(0.2)
+                        .overlay(.ultraThinMaterial)
+                )
+                .cornerRadius(20)
+                .shadow(color: .teal.opacity(0.1), radius: 5, x: 0, y: 2)
+            }
+            .padding(12)
+            
+
             
             
-            
-            
-            Text("\(speciesCount) Fish Logged")
-                .font(.system(.title3, design: .default))
-                .fontWeight(.heavy)
-                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+    
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(

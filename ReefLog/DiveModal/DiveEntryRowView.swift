@@ -20,7 +20,7 @@ struct SightingTagView: View {
     
     var body: some View {
         Text(title)
-            .font(.system(size: 16)) // Bolder font
+            .font(.system(size: 16))
             .foregroundStyle(Color(red: 0.0, green: 0.2, blue: 0.4))
             .padding(.horizontal, 14)
             .padding(.vertical, 7)
@@ -30,7 +30,7 @@ struct SightingTagView: View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.white.opacity(0.3), lineWidth: 1) // Soft border
+                    .stroke(Color.white.opacity(0.3), lineWidth: 1)
             )
     }
 }

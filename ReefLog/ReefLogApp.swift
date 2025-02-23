@@ -11,7 +11,7 @@ struct ContentView: View {
         let appearance = UITabBarAppearance()
         appearance.configureWithTransparentBackground()
         appearance.backgroundEffect = UIBlurEffect(style: .systemThinMaterial)
-        appearance.backgroundColor = UIColor.systemGray.withAlphaComponent(0.4)
+        appearance.backgroundColor = UIColor.systemGray.withAlphaComponent(0.3)
 
         UITabBar.appearance().standardAppearance = appearance
         UITabBar.appearance().scrollEdgeAppearance = appearance
