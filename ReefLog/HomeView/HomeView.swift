@@ -32,7 +32,7 @@ struct StatsCircleView: View {
                 
                 VStack(spacing: 0) {
                     Text("\(diveCount)")
-                        .font(.system(size: 80, weight: .medium))
+                        .font(.system(size: 80, weight: .light))
                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
                     Text("Dives")
                         .fontWeight(.heavy)

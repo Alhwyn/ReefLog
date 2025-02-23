@@ -23,8 +23,6 @@ struct FishListView: View {
                 )
                 .ignoresSafeArea()
                 
-
-    
                 List {
                     ForEach(database.fishList) { fish in
                         ZStack {
@@ -55,11 +53,11 @@ struct FishListView: View {
                             }
                             .padding()
                         }
-                        .listRowBackground(Color.clear)  // Makes sure list background stays transparent
+                        .listRowBackground(Color.clear)
                         .padding(.vertical, 4)
                     }
                 }
-                .scrollContentBackground(.hidden) // Removes default system background
+                .scrollContentBackground(.hidden)
                 .listStyle(InsetGroupedListStyle())
                 .navigationTitle("Fish Catalog")
                 .padding(.horizontal, 8)

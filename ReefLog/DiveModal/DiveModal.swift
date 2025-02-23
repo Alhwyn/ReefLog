@@ -54,7 +54,7 @@ struct DiveEntryView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        let newEntry = DiveEntry(date: diveDate, location: location, sightings: fishSelectedList)
+                        let newEntry = DiveEntry(date: diveDate, location: location, sightings: fishSelectedList, depth: depth, diveTime: time)
                         onSave(newEntry)
                         dismiss()
                     }
