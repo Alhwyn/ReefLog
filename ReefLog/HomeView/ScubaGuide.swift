@@ -12,8 +12,22 @@ struct ScubaGuide: View {
     
     var body: some View {
         ZStack {
-            Color.teal
-                .ignoresSafeArea()
+            
+            MeshGradient(
+                width: 3,
+                height: 3,
+                points: [
+                    [0.0, 0.0], [0.5, 0.0], [1.0, 0.0],
+                    [0.0, 0.5], [0.9, 0.3], [1.0, 0.5],
+                    [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
+                ],
+                colors: [
+                    .teal, .teal, .teal,
+                    .cyan, .cyan, .cyan,
+                    .cyan, .cyan, .cyan
+                ]
+            )
+            .ignoresSafeArea()
         }
         
     }

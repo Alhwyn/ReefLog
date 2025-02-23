@@ -23,11 +23,8 @@ struct FishListView: View {
                 )
                 .ignoresSafeArea()
                 
-                // Semi-Transparent Background for the Whole List
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(.ultraThinMaterial)  // Glass effect
-                    .opacity(0.8)  // Adjust transparency level
-                    .padding(.horizontal, 16)
+
+    
                  
                 
                 List {

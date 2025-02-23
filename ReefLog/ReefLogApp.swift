@@ -26,7 +26,7 @@ struct ContentView: View {
                 .tabItem { Label("Dives Log", systemImage: "water.waves") }
             FishListView()
                 .tabItem { Label("Reef Catalog", systemImage: "fish") }
-            FishListView()
+            ScubaGuide()
                 .tabItem { Label("Scuba Guide", systemImage: "info.circle") }
         }
     }

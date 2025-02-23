@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Frame 3-2.png",
+      "filename" : "Frame 3-3.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -54,7 +54,6 @@
       "size" : "128x128"
     },
     {
-      "filename" : "Frame 3.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "128x128"
