@@ -38,7 +38,6 @@ struct ScubaGuide: View {
                         Text("Scuba Guide")
                             .font(.system(size: 50, weight: .bold))
                             .foregroundColor(.white)
-                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
                             .padding(.top, 40)
                             .padding(.bottom, 10)
                         
@@ -53,13 +52,15 @@ struct ScubaGuide: View {
                                             .foregroundColor(.white)
                                         Text(title)
                                             .font(.headline)
-                                            .foregroundColor(.white)
+                                            .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
                                             .multilineTextAlignment(.center)
                                     }
                                     .frame(maxWidth: .infinity, minHeight: 120)
-                                    .background(Color.black.opacity(0.3))
+                                    .background(
+                                        Color.white.opacity(0)
+                                            .overlay(.ultraThinMaterial)
+                                    )
                                     .cornerRadius(15)
-                                    .shadow(radius: 5)
                                 }
                             }
                         }

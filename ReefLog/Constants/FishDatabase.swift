@@ -24,7 +24,6 @@ class FishDatabase: ObservableObject {
             Fish(scienticName: "Euspongia officinalis", name: "Sponge", description: "A simple aquatic animal that filters water for nutrients.", endangeredLevel: false, isFoundByUser: false),
             Fish(scienticName: "Hippocampus erectus", name: "Sea Horse", description: "A unique fish with a horse-like head and a prehensile tail.", endangeredLevel: true, isFoundByUser: false),
             Fish(scienticName: "Gorgonia ventalina", name: "Sea Fans", description: "A soft coral that forms fan-like structures.", endangeredLevel: false, isFoundByUser: false),
-            Fish(scienticName: "Homo sapiens", name: "Scuba Diver", description: "A human exploring the ocean with diving gear.", endangeredLevel: false, isFoundByUser: false),
             Fish(scienticName: "Tetraodontidae", name: "Pufferfish", description: "A fish that inflates to ward off predators.", endangeredLevel: true, isFoundByUser: false),
             Fish(scienticName: "Scarus coeruleus", name: "Parrot Fish", description: "A fish that helps maintain coral reefs by eating algae.", endangeredLevel: false, isFoundByUser: false),
             Fish(scienticName: "Octopus vulgaris", name: "Octopus", description: "A highly intelligent mollusk with eight arms.", endangeredLevel: false, isFoundByUser: false),

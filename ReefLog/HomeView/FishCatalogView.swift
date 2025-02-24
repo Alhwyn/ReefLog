@@ -23,15 +23,13 @@ struct FishListView: View {
                 )
                 .ignoresSafeArea()
                 
+
                 List {
                     ForEach(database.fishList) { fish in
                         ZStack {
                             // Glass effect for each row
                             RoundedRectangle(cornerRadius: 12)
                                 .fill(.thinMaterial)
-                                .background(Color.clear)
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                                .shadow(radius: 2)
 
                             HStack {
                                 VStack(alignment: .leading) {
@@ -58,9 +56,9 @@ struct FishListView: View {
                     }
                 }
                 .scrollContentBackground(.hidden)
-                .listStyle(InsetGroupedListStyle())
                 .navigationTitle("Fish Catalog")
                 .padding(.horizontal, 8)
+                .foregroundStyle(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
             }
         }
     }

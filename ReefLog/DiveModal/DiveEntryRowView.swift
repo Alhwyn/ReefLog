@@ -128,7 +128,10 @@ struct DiveEntryRowView: View {
             }
         }
         .padding()
-        .background(.regularMaterial)
+        .background(
+            Color.white.opacity(0.2)
+                .overlay(.ultraThinMaterial)
+        )
         .cornerRadius(12)
         .shadow(radius: 2)
         

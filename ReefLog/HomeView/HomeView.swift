@@ -58,11 +58,10 @@ struct StatsCircleView: View {
                 }
                 .frame(width: 170, height: 90)
                 .background(
-                    Color.teal.opacity(0.2)
+                    Color.white.opacity(0.2)
                         .overlay(.ultraThinMaterial)
                 )
                 .cornerRadius(20)
-                .shadow(color: .teal.opacity(0.1), radius: 5, x: 0, y: 2)
                 
                 VStack(spacing: 6) {
                     Text("79m")
@@ -74,11 +73,11 @@ struct StatsCircleView: View {
                 }
                 .frame(width: 90, height: 90)
                 .background(
-                    Color.teal.opacity(0.2)
+                    Color.white.opacity(0.2)
                         .overlay(.ultraThinMaterial)
                 )
                 .cornerRadius(20)
-                .shadow(color: .teal.opacity(0.1), radius: 5, x: 0, y: 2)
+             
             
                 
                 VStack(spacing: 6) {
@@ -91,11 +90,11 @@ struct StatsCircleView: View {
                 }
                 .frame(width: 90, height: 90)
                 .background(
-                    Color.teal.opacity(0.2)
+                    Color.white.opacity(0.2)
                         .overlay(.ultraThinMaterial)
                 )
                 .cornerRadius(20)
-                .shadow(color: .teal.opacity(0.1), radius: 5, x: 0, y: 2)
+     
             }
 
             
