@@ -14,9 +14,8 @@ struct SignalItem: Identifiable {
     let imageName: String // Name of the image asset
 }
 
-// Scuba Signals View with TikTok-style scrolling
 struct ScubaSignalsView: View {
-    // Sample list of scuba signals
+
     let signalItems: [SignalItem] = [
         SignalItem(
             name: "OK",
@@ -43,9 +42,33 @@ struct ScubaSignalsView: View {
             imageName: "signal_ear"
         ),
         SignalItem(
-            name: "Look",
-            imageName: "signal_look"
-        )
+            name: "Come Here",
+            imageName: "signal_here"
+        ),
+        SignalItem(
+            name: "Watch me",
+            imageName: "signal_watch_me"
+        ),
+        SignalItem(
+            name: "Get with your buddy",
+            imageName: "signal_buddy"
+        ),
+        SignalItem(
+            name: "Low on air",
+            imageName: "signal_low_air"
+        ),
+        SignalItem(
+            name: "Out of Air",
+            imageName: "signal_no_air"
+        ),
+        SignalItem(
+            name: "Share Air",
+            imageName: "signal_share_air"
+        ),
+        SignalItem(
+            name: "How much air?",
+            imageName: "signal_how_much_air"
+        ),
     ]
     
     var body: some View {
@@ -76,7 +99,7 @@ struct ScubaSignalsView: View {
                             Image(item.imageName) // Replace with your actual image assets
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 200, height: 200) // Sized for visibility
+                                .frame(width: 300, height: 300) // Sized for visibility
                                 .clipShape(RoundedRectangle(cornerRadius: 20)) // Rounded for a "cute" feel
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 20)

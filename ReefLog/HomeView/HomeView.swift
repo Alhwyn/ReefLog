@@ -32,11 +32,11 @@ struct StatsCircleView: View {
                 
                 VStack(spacing: 0) {
                     Text("\(diveCount)")
-                        .font(.system(size: 80, weight: .light))
+                        .font(.system(size: 80, weight: .medium))
                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
                     Text("Dives")
                         .fontWeight(.heavy)
-                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
                 }
             }
             .frame(width: 200, height: 200)
@@ -46,11 +46,11 @@ struct StatsCircleView: View {
                 HStack(spacing: 10) {
                     Image(systemName: "fish")
                         .font(.system(size: 40))
-                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
                         VStack(spacing: 6) {
                             Text("\(speciesCount)")
                                 .font(.system(size: 30, weight: .bold, design: .default))
-                                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
+                                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
                             Text("Fish Logged")
                                 .font(.system(size: 12, weight: .medium, design: .default))
                                 .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
@@ -66,7 +66,7 @@ struct StatsCircleView: View {
                 VStack(spacing: 6) {
                     Text("79m")
                         .font(.system(size: 30, weight: .bold, design: .default))
-                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
                     Text("Maximum Depth")
                         .font(.system(size: 12, weight: .medium, design: .default))
                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
@@ -83,7 +83,7 @@ struct StatsCircleView: View {
                 VStack(spacing: 6) {
                     Text("40h")
                         .font(.system(size: 30, weight: .bold, design: .default))
-                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
                     Text("Total Underwater")
                         .font(.system(size: 12, weight: .medium, design: .default))
                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
@@ -183,7 +183,7 @@ struct HomeView: View {
                             .clipShape(Circle())
                             .shadow(radius: 2)
                     }
-                    .padding(.trailing, 30)
+                    .padding(.trailing, 35)
                 }
                 .background(.cyan)
                 

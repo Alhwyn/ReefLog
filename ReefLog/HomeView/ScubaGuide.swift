@@ -6,7 +6,8 @@ struct ScubaGuide: View {
         ("Scuba Equipment", "water.waves"),
         ("Diving Medicine", "cross.case"),
         ("Diving Physics", "gauge"),
-        ("Scuba Signals", "hand.raised")
+        ("Scuba Signals", "hand.raised"),
+        ("Before you Scuba Dive", "checkmark.circle")
     ]
     
     let columns = [
@@ -57,7 +58,7 @@ struct ScubaGuide: View {
                                     }
                                     .frame(maxWidth: .infinity, minHeight: 120)
                                     .background(
-                                        Color.white.opacity(0)
+                                        Color.white.opacity(0.2)
                                             .overlay(.ultraThinMaterial)
                                     )
                                     .cornerRadius(15)
@@ -71,13 +72,16 @@ struct ScubaGuide: View {
         }
     }
     
-    // Helper function to determine the destination view
     @ViewBuilder
     private func destinationView(for title: String) -> some View {
         if title == "Scuba Equipment" {
             ScubaEquipmentView()
         } else if  title == "Diving Physics"{
             DivingPhysicsView()
+        } else if  title == "Scuba Signals"{
+            ScubaSignalsView()
+        } else if  title == "Before you Scuba Dive"{
+            DivingBodyCheckView()
         } else {
             DetailView(title: title)
         }
