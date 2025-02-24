@@ -132,7 +132,7 @@ struct DiveEntryRowView: View {
             Color.white.opacity(0.2)
                 .overlay(.ultraThinMaterial)
         )
-        .cornerRadius(12)
+        .cornerRadius(25)
         .shadow(radius: 2)
         
     }

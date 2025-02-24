@@ -61,7 +61,8 @@ struct StatsCircleView: View {
                     Color.white.opacity(0.2)
                         .overlay(.ultraThinMaterial)
                 )
-                .cornerRadius(20)
+                .cornerRadius(25)
+                .shadow(radius: 2)
                 
                 VStack(spacing: 6) {
                     Text("79m")
@@ -77,6 +78,7 @@ struct StatsCircleView: View {
                         .overlay(.ultraThinMaterial)
                 )
                 .cornerRadius(20)
+                .shadow(radius: 2)
              
             
                 
@@ -85,7 +87,7 @@ struct StatsCircleView: View {
                         .font(.system(size: 30, weight: .bold, design: .default))
                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
                     Text("Total Underwater")
-                        .font(.system(size: 12, weight: .medium, design: .default))
+                        .font(.system(size: 11, weight: .medium, design: .default))
                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
                 }
                 .frame(width: 90, height: 90)
@@ -94,14 +96,16 @@ struct StatsCircleView: View {
                         .overlay(.ultraThinMaterial)
                 )
                 .cornerRadius(20)
+                .shadow(radius: 2)
      
             }
+            
+            Text("Dives")
+                .fontWeight(.heavy)
+                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
 
             
 
-            
-            
-    
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
@@ -147,7 +151,7 @@ struct HomeView: View {
                 ScrollView {
                     if sampleEntries.isEmpty {
                         VStack(spacing: 10) {
-                            Text("No Fish Found")
+                            Text("Empty Dive Log")
                                 .fontWeight(.semibold)
                                 .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.5))
                         }
