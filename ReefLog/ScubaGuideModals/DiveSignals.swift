@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-// Data model for scuba signals
+
 struct SignalItem: Identifiable {
     let id = UUID()
-    let name: String // The meaning of the signal (e.g., "OK")
-    let imageName: String // Name of the image asset
+    let name: String
+    let imageName: String
 }
 
 struct ScubaSignalsView: View {
@@ -74,7 +74,7 @@ struct ScubaSignalsView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                // Background MeshGradient with a "cute" twist (softer colors)
+                
                 MeshGradient(
                     width: 3,
                     height: 3,
@@ -96,14 +96,14 @@ struct ScubaSignalsView: View {
                     ForEach(signalItems) { item in
                         VStack(spacing: 30) {
                          
-                            Image(item.imageName) // Replace with your actual image assets
+                            Image(item.imageName)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 300, height: 300) // Sized for visibility
-                                .clipShape(RoundedRectangle(cornerRadius: 20)) // Rounded for a "cute" feel
+                                .frame(width: 300, height: 300)
+                                .clipShape(RoundedRectangle(cornerRadius: 20))
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.white.opacity(0.8), lineWidth: 4) // Soft border
+                                        .stroke(Color.white.opacity(0.8), lineWidth: 4)
                                 )
                                 .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
                                 .padding(.top, 50)
@@ -115,7 +115,7 @@ struct ScubaSignalsView: View {
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 10)
                                 .background(Color.teal.opacity(0.3))
-                                .clipShape(Capsule()) // Capsule shape for a playful look
+                                .clipShape(Capsule())
                                 .overlay(
                                     Capsule()
                                         .stroke(Color.white.opacity(0.5))
@@ -123,12 +123,12 @@ struct ScubaSignalsView: View {
                             
                             Spacer()
                         }
-                        .frame(width: geometry.size.width, height: geometry.size.height) // Full-screen page
-                        .background(Color.black.opacity(0.05)) // Subtle page background
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        .background(Color.black.opacity(0.05))
                     }
                 }
-                .tabViewStyle(PageTabViewStyle()) // Enables page-style swiping
-                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always)) // Optional: Adds page dots
+                .tabViewStyle(PageTabViewStyle())
+                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
             }
         }
     }

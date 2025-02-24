@@ -15,9 +15,7 @@ struct DiveEntry: Identifiable {
     let diveTime: String
 }
 
-
-
-struct SightingTagView: View {
+struct Tag: View {
     
     let title: String
     
@@ -31,29 +29,84 @@ struct SightingTagView: View {
                 RoundedRectangle(cornerRadius: 15)
                     .fill(Color.teal.opacity(0.3))
             )
-            .overlay(
-                RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.white.opacity(0.3), lineWidth: 1)
-            )
     }
 }
 
 
-struct DiveModalRowView: View {
-    let fishList: [String]
+struct SightingTagView: View {
+    
+    let title: String
+    @Binding var fishList: [String]
+    
+    var body: some View {
+        HStack {
+            Text(title)
+                .font(.system(size: 16))
 
+            Button(action: {
+                fishList.removeAll { $0 == title }
+            }) {
+                Image(systemName: "xmark")
+                    .font(.system(size: 10)) // Small "x"
+                    .foregroundColor(.gray)
+                    .padding(2)
+            }
+            .buttonStyle(PlainButtonStyle()) // Removes default button styling
+            
+        }
+        .foregroundStyle(Color(red: 0.0, green: 0.2, blue: 0.4))
+        .padding(.horizontal, 14)
+        .padding(.vertical, 7)
+        .background(
+            RoundedRectangle(cornerRadius: 15)
+                .fill(Color.teal.opacity(0.3))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(Color.white.opacity(0.3), lineWidth: 1)
+        )
+        
+    }
+}
+
+
+
+
+private func groupSightings(_ sightings: [String]) -> [[String]] {
+    var columns: [[String]] = []
+    var currentColumn: [String] = []
+
+    for fish in sightings {
+        currentColumn.append(fish)
+
+        if currentColumn.count == 3 {
+            columns.append(currentColumn)
+            currentColumn = []
+        }
+    }
+
+    if !currentColumn.isEmpty {
+        columns.append(currentColumn)
+    }
+
+    return columns
+}
+
+struct DiveModalRowView: View {
+    @Binding var fishList: [String]
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Sightings")
                 .font(.caption)
                 .foregroundColor(.gray)
-
+            
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(alignment: .top, spacing: 8) {
                     ForEach(groupSightings(fishList), id: \.self) { column in
                         VStack(spacing: 4) {
                             ForEach(column, id: \.self) { fish in
-                                SightingTagView(title: fish)
+                                SightingTagView(title: fish, fishList: $fishList)
                             }
                         }
                     }
@@ -62,30 +115,8 @@ struct DiveModalRowView: View {
         }
         .padding()
     }
-
-    /// Groups the fish list into columns with a max of 3 rows per column
-    private func groupSightings(_ sightings: [String]) -> [[String]] {
-        var columns: [[String]] = []
-        var currentColumn: [String] = []
-
-        for fish in sightings {
-            currentColumn.append(fish)
-
-            if currentColumn.count == 3 { // Limit to 3 per column
-                columns.append(currentColumn)
-                currentColumn = []
-            }
-        }
-
-        if !currentColumn.isEmpty { // Add remaining fish
-            columns.append(currentColumn)
-        }
-
-        return columns
-    }
 }
-
-
+    
 
 struct DiveEntryRowView: View {
     let entry: DiveEntry
@@ -120,7 +151,7 @@ struct DiveEntryRowView: View {
                 
                 FlowLayout(spacing: 4) {
                     ForEach(entry.sightings, id: \.self) { species in
-                        SightingTagView(
+                        Tag(
                             title: species
                         )
                     }

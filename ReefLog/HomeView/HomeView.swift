@@ -1,13 +1,10 @@
 import SwiftUI
 
-
-//
-
-// Cirlce View
 struct StatsCircleView: View {
     let diveCount: Int
     let speciesCount: Int
-    //let maxDepth: Int
+    let maxDepth: Int
+    let totalTime: Int
     
     var body: some View {
         VStack {
@@ -49,63 +46,56 @@ struct StatsCircleView: View {
                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
                         VStack(spacing: 6) {
                             Text("\(speciesCount)")
-                                .font(.system(size: 30, weight: .bold, design: .default))
+                                .font(.system(size: 30, design: .rounded))
                                 .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
                             Text("Fish Logged")
-                                .font(.system(size: 12, weight: .medium, design: .default))
+                                .font(.system(size: 12, design: .rounded))
                                 .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
                     }
                 }
-                .frame(width: 170, height: 90)
-                .background(
-                    Color.white.opacity(0.2)
-                        .overlay(.ultraThinMaterial)
-                )
-                .cornerRadius(25)
-                .shadow(radius: 2)
-                
-                VStack(spacing: 6) {
-                    Text("79m")
-                        .font(.system(size: 30, weight: .bold, design: .default))
-                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
-                    Text("Maximum Depth")
-                        .font(.system(size: 12, weight: .medium, design: .default))
-                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
-                }
-                .frame(width: 90, height: 90)
+                .frame(width: 170, height: 80)
                 .background(
                     Color.white.opacity(0.2)
                         .overlay(.ultraThinMaterial)
                 )
                 .cornerRadius(20)
+                .shadow(radius: 2)
+                
+                VStack(spacing: 6) {
+                    Text("\(maxDepth)")
+                        .font(.system(size: 30, design: .rounded))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
+                    Text("Max Depth")
+                        .font(.system(size: 12, design: .rounded))
+                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
+                }
+                .frame(width: 80, height: 80)
+                .background(
+                    Color.white.opacity(0.2)
+                        .overlay(.ultraThinMaterial)
+                )
+                .cornerRadius(15)
                 .shadow(radius: 2)
              
             
                 
                 VStack(spacing: 6) {
-                    Text("40h")
-                        .font(.system(size: 30, weight: .bold, design: .default))
+                    Text("\(totalTime)")
+                        .font(.system(size: 30, design: .rounded))
                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
-                    Text("Total Underwater")
-                        .font(.system(size: 11, weight: .medium, design: .default))
+                    Text("Total Time ")
+                        .font(.system(size: 12, design: .rounded))
                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
                 }
-                .frame(width: 90, height: 90)
+                .frame(width: 80, height: 80)
                 .background(
                     Color.white.opacity(0.2)
                         .overlay(.ultraThinMaterial)
                 )
-                .cornerRadius(20)
+                .cornerRadius(15)
                 .shadow(radius: 2)
      
             }
-            
-            Text("Dives")
-                .fontWeight(.heavy)
-                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
-
-            
-
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
@@ -140,13 +130,28 @@ struct HomeView: View {
         sampleEntries.reduce(0) { $0 + $1.sightings.count }
     }
     
+    var totalDiveTime: Int {
+        sampleEntries.reduce(0) { total, entry in
+            if let time = Int(entry.diveTime) { // Convert string to int, ignore if not a digit
+                return total + time
+            }
+            return total // Ignore non-numeric values
+        }
+    }
+    
+    var maximumDepth: Int {
+        sampleEntries.map { entry in
+            Int(entry.depth) ?? 0 // Convert string to int, use 0 if not a digit
+        }.max() ?? 0 // Return max value, or 0 if array is empty
+    }
+    
     var body: some View {
         ZStack {
             Color.teal
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                StatsCircleView(diveCount: totalEntries, speciesCount: totalSightings)
+                StatsCircleView(diveCount: totalEntries, speciesCount: totalSightings, maxDepth: maximumDepth, totalTime: totalDiveTime)
                 
                 ScrollView {
                     if sampleEntries.isEmpty {

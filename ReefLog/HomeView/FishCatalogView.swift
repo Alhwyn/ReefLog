@@ -6,7 +6,6 @@ struct FishListView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                // Background Gradient
                 MeshGradient(
                     width: 3,
                     height: 3,

@@ -1,16 +1,14 @@
 import SwiftUI
 
-// Data model for scuba equipment
 struct EquipmentItem: Identifiable {
     let id = UUID()
     let name: String
     let description: String
-    let icon: String // SF Symbol name for simplicity (could be an image later)
+    let icon: String
 }
 
-// Scuba Equipment View with TikTok-style scrolling
+
 struct ScubaEquipmentView: View {
-    // Sample list of scuba equipment
     let equipmentItems: [EquipmentItem] = [
         EquipmentItem(
             name: "Snorkel",
@@ -51,7 +49,6 @@ struct ScubaEquipmentView: View {
     
     var body: some View {
         ZStack {
-            // Background MeshGradient (consistent with your app’s style)
             MeshGradient(
                 width: 3,
                 height: 3,
@@ -68,24 +65,21 @@ struct ScubaEquipmentView: View {
             )
             .ignoresSafeArea()
             
-            // TikTok-style vertical scroll with TabView
+
             TabView {
                 ForEach(equipmentItems) { item in
                     VStack(spacing: 20) {
-                        // Icon for the equipment
                         Image(systemName: item.icon)
                             .font(.system(size: 60))
                             .foregroundColor(.white)
                             .padding(.top, 50)
                         
-                        // Equipment Name
                         Text(item.name)
                             .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                         
-                        // Description
                         Text(item.description)
                             .font(.body)
                             .foregroundColor(.white)
@@ -97,8 +91,8 @@ struct ScubaEquipmentView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
-            .tabViewStyle(PageTabViewStyle()) // Enables page-style swiping
-            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always)) // Optional: Adds page dots
+            .tabViewStyle(PageTabViewStyle())
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
         }
     }
 }

@@ -83,63 +83,11 @@ struct ScubaGuide: View {
         } else if  title == "Before you Scuba Dive"{
             DivingBodyCheckView()
         } else {
-            DetailView(title: title)
+            HealthCheckView()
         }
     }
 }
 
-struct DetailView: View {
-    let title: String
-
-    var content: String {
-        switch title {
-        case "Diving Medicine":
-            return "Understand decompression sickness, barotrauma, and other diving-related health topics."
-        case "Diving Physics":
-            return "Explore pressure, buoyancy, and gas laws as they apply to scuba diving."
-        case "Scuba Signals":
-            return "Master hand signals like 'OK', 'Up', 'Down', and 'Stop' for underwater communication."
-        default:
-            return "No information available."
-        }
-    }
-    
-    var body: some View {
-        ZStack {
-            MeshGradient(
-                width: 3,
-                height: 3,
-                points: [
-                    [0.0, 0.0], [0.5, 0.0], [1.0, 0.0],
-                    [0.0, 0.5], [0.9, 0.3], [1.0, 0.5],
-                    [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
-                ],
-                colors: [
-                    .teal, .teal, .teal,
-                    .cyan, .cyan, .cyan,
-                    .cyan, .cyan, .cyan
-                ]
-            )
-            .ignoresSafeArea()
-            
-            VStack {
-                Text(title)
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .padding(.top, 40)
-                
-                ScrollView {
-                    Text(content)
-                        .font(.body)
-                        .foregroundColor(.white)
-                        .padding()
-                }
-                
-                Spacer()
-            }
-        }
-    }
-}
 
 #Preview {
     ScubaGuide()

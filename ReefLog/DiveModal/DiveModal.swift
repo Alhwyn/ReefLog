@@ -19,6 +19,7 @@ struct DiveEntryView: View {
     @State private var fishSelectedList: [String] = []
     
     @State private var fishClassifier: FishClassifierModel? = FishClassifierModel()
+    @State private var showingSightingsSheet = false
     
     var onSave: (DiveEntry) -> Void
     
@@ -27,12 +28,19 @@ struct DiveEntryView: View {
             ZStack {
                 Form {
                     PhotoGrid(images: selectedImages)
-                    DiveModalRowView(fishList: fishSelectedList)
+                    DiveModalRowView(fishList: $fishSelectedList)
                     
                     Section(header: Text("Scuba Photos").foregroundStyle(.primary)) {
                         PhotosPicker(selection: $selectedItems, matching: .images, photoLibrary: .shared()) {
                             Label("Add Scuba Photos", systemImage: "fish.circle")
                         }
+                    }
+                    
+                    Button(action: {
+                        showingSightingsSheet = true
+                    }) {
+                        Label("Add & Edit Sightings", systemImage: "plus.circle")
+                            .foregroundColor(.blue)
                     }
                     
                     Section(header: Text("Dive Details").foregroundStyle(.primary)) {
@@ -58,7 +66,7 @@ struct DiveEntryView: View {
                         onSave(newEntry)
                         dismiss()
                     }
-                    .disabled(location.isEmpty || selectedImages.isEmpty)
+                    .disabled(location.isEmpty || fishSelectedList.isEmpty)
                 }
             }
             .onChange(of: selectedItems) {
@@ -66,13 +74,15 @@ struct DiveEntryView: View {
                     await loadImagesAndClassify(from: selectedItems)
                 }
             }
+            .sheet(isPresented: $showingSightingsSheet) {
+                            SightingsSheet(fishSelectedList: $fishSelectedList)
+                        }
             .presentationBackground(.ultraThinMaterial)
         }
     }
     
     private func loadImagesAndClassify(from items: [PhotosPickerItem]) async {
         var imagesWithLabels: [NamedImage] = []
-        var fish: [String] = []
         
         guard let classifier = fishClassifier else {
             print("Fish classifier not available")
@@ -84,12 +94,11 @@ struct DiveEntryView: View {
                let uiImage = UIImage(data: data) {
                 let predictedFish = await classifier.classifyFish(image: uiImage)
                 imagesWithLabels.append(NamedImage(image: uiImage, name: predictedFish))
-                fish.append(predictedFish)
+                fishSelectedList.append(predictedFish)
             }
         }
         
         selectedImages = imagesWithLabels
-        fishSelectedList = fish
     }
 }
 
@@ -118,6 +127,61 @@ struct TextFieldRow: View {
             Image(systemName: icon).foregroundStyle(.secondary)
             TextField(placeholder, text: $text)
                 .keyboardType(keyboardType)
+        }
+    }
+}
+
+struct SightingsSheet: View {
+    @Binding var fishSelectedList: [String]
+    @State private var customFish = ""
+    @State private var fishDatabase = FishDatabase()
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                
+                DiveModalRowView(fishList: $fishSelectedList)
+                
+                Section(header: Text("Add Custom Sighting")) {
+                    TextField("Enter fish name", text: $customFish)
+                    Button("Add Custom Fish") {
+                        let trimmedFish = customFish.trimmingCharacters(in: .whitespaces)
+                        if !trimmedFish.isEmpty && !fishSelectedList.contains(trimmedFish) {
+                            fishSelectedList.append(trimmedFish)
+                            customFish = ""
+                        }
+                    }
+                    .disabled(customFish.trimmingCharacters(in: .whitespaces).isEmpty)
+                }
+                
+                Section(header: Text("Select Fish Sightings")) {
+                    ForEach(fishDatabase.fishList) { fish in
+                        Button(action: {
+                            if !fishSelectedList.contains(fish.name) {
+                                fishSelectedList.append(fish.name)
+                            }
+                        }) {
+                            HStack {
+                                Text(fish.name) // Display only the name
+                                Spacer()
+                                if fishSelectedList.contains(fish.name) {
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(.blue)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Sightings")
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") {
+                        dismiss()
+                    }
+                }
+            }
         }
     }
 }

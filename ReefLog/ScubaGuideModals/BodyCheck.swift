@@ -87,7 +87,7 @@ struct DivingBodyCheckView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                // Use the reusable MeshGradient function
+
                 MeshGradient(
                     width: 3,
                     height: 3,

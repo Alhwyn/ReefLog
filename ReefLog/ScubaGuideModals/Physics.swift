@@ -6,17 +6,16 @@
 //
 import SwiftUI
 
-// Data model for diving physics concepts
+
 struct PhysicsItem: Identifiable {
     let id = UUID()
     let name: String
     let description: String
-    let icon: String // SF Symbol name
+    let icon: String
 }
 
-// Diving Physics View with TikTok-style scrolling
+
 struct DivingPhysicsView: View {
-    // List of diving physics concepts
     let physicsItems: [PhysicsItem] = [
         PhysicsItem(
             name: "Pressure",
@@ -57,7 +56,6 @@ struct DivingPhysicsView: View {
     
     var body: some View {
         ZStack {
-            // Background MeshGradient (consistent with your app’s style)
             MeshGradient(
                 width: 3,
                 height: 3,
@@ -83,14 +81,14 @@ struct DivingPhysicsView: View {
                             .foregroundColor(.white)
                             .padding(.top, 50)
                         
-                        // Equipment Name
+              
                         Text(item.name)
                             .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                         
-                        // Description
+          
                         Text(item.description)
                             .font(.body)
                             .foregroundColor(.white)
@@ -102,8 +100,8 @@ struct DivingPhysicsView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
-            .tabViewStyle(PageTabViewStyle()) // Enables page-style swiping
-            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always)) // Optional: Adds page dots
+            .tabViewStyle(PageTabViewStyle())
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always)) 
         }
     }
 }
