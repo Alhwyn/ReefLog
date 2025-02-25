@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct FishListView: View {
+    /// shows the list of the fish database
     @StateObject var database = FishDatabase()
     
     var body: some View {
@@ -34,12 +35,13 @@ struct FishListView: View {
                                 VStack(alignment: .leading) {
                                     Text(fish.name)
                                         .font(.headline)
+                                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4))
                                     Text(fish.scienticName)
                                         .font(.subheadline)
-                                        .foregroundColor(.gray)
+                                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
                                     Text(fish.description)
                                         .font(.caption)
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
                                     if fish.endangeredLevel {
                                         Text("Endangered")
                                             .font(.caption)
@@ -56,8 +58,9 @@ struct FishListView: View {
                 }
                 .scrollContentBackground(.hidden)
                 .navigationTitle("Fish Catalog")
-                .padding(.horizontal, 8)
                 .foregroundStyle(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
+                .padding(.horizontal, 8)
+                
             }
         }
     }

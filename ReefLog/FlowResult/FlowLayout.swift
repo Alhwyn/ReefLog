@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct FlowLayout: Layout {
+    /// a custom SwiftUI layout and a helper function for the FlowResult thatarranges subviews in a flow-like manner
+    /// wrapping them into new rows when they exceed the available width
+    
     
     var spacing: CGFloat = 4
     

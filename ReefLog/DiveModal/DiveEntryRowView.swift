@@ -16,6 +16,7 @@ struct DiveEntry: Identifiable {
 }
 
 struct Tag: View {
+    /// this function is the tag from the species sighting it is us
     
     let title: String
     
@@ -34,6 +35,7 @@ struct Tag: View {
 
 
 struct SightingTagView: View {
+    /// this function is the tag from the species sighting wiht an additional reature that can be removed when pressed
     
     let title: String
     @Binding var fishList: [String]
@@ -47,11 +49,11 @@ struct SightingTagView: View {
                 fishList.removeAll { $0 == title }
             }) {
                 Image(systemName: "xmark")
-                    .font(.system(size: 10)) // Small "x"
+                    .font(.system(size: 10)) 
                     .foregroundColor(.gray)
                     .padding(2)
             }
-            .buttonStyle(PlainButtonStyle()) // Removes default button styling
+            .buttonStyle(PlainButtonStyle())
             
         }
         .foregroundStyle(Color(red: 0.0, green: 0.2, blue: 0.4))
@@ -73,6 +75,8 @@ struct SightingTagView: View {
 
 
 private func groupSightings(_ sightings: [String]) -> [[String]] {
+    /// this is a helper function to organize the column for the DiveModalRowView of the following Tags of the species of the DIve modal Row View
+    
     var columns: [[String]] = []
     var currentColumn: [String] = []
 
@@ -93,6 +97,8 @@ private func groupSightings(_ sightings: [String]) -> [[String]] {
 }
 
 struct DiveModalRowView: View {
+    /// The DiveModalRowView shows the nubmer of fish that can be edited when the user pressed the remove button
+    /// this function is only for the dive modal when user want to create a dive log
     @Binding var fishList: [String]
     
     var body: some View {
@@ -119,6 +125,8 @@ struct DiveModalRowView: View {
     
 
 struct DiveEntryRowView: View {
+    /// This is  the DiveEntry Card mainy for the homescree that will show the users
+    /// Location, Date of Dive, and the unique fish and species sighting duing its dive
     let entry: DiveEntry
     
     var body: some View {

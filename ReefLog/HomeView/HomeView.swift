@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct StatsCircleView: View {
+    /// States Circle view shows the stats of teh number of dive logs that is inside a big bubble
+    /// and below it  show the number of fish logged and the user maximum depth and the total time the user has ever scuba dive in its logg book
     let diveCount: Int
     let speciesCount: Int
     let maxDepth: Int
@@ -118,31 +120,36 @@ struct StatsCircleView: View {
 }
 
 struct HomeView: View {
+    /// the hame view is what is shown in the preview shows the bubble and the users fish logs
 
     @State private var isLogging = false
     @State private var sampleEntries: [DiveEntry] = []
     
     var totalEntries: Int {
+        /// the number of dive logs of the user
         sampleEntries.count
     }
 
     var totalSightings: Int {
+        /// the total species sighting fomr the users dive log
         sampleEntries.reduce(0) { $0 + $1.sightings.count }
     }
     
     var totalDiveTime: Int {
+        /// the sum of the total dive of of the user
         sampleEntries.reduce(0) { total, entry in
-            if let time = Int(entry.diveTime) { // Convert string to int, ignore if not a digit
+            if let time = Int(entry.diveTime) {
                 return total + time
             }
-            return total // Ignore non-numeric values
+            return total
         }
     }
     
     var maximumDepth: Int {
+        /// the maximum depth the user has reached in their diving career
         sampleEntries.map { entry in
-            Int(entry.depth) ?? 0 // Convert string to int, use 0 if not a digit
-        }.max() ?? 0 // Return max value, or 0 if array is empty
+            Int(entry.depth) ?? 0
+        }.max() ?? 0 
     }
     
     var body: some View {

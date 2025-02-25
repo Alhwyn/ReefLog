@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-// Data model for body check, hygiene, and gear items
+
 struct BodyCheckItem: Identifiable {
     let id = UUID()
     let name: String
     let description: String
-    let icon: String // SF Symbol name
+    let icon: String 
 }
 
-// Diving Body Check, Hygiene, and Gear View with TikTok-style scrolling
+
 struct DivingBodyCheckView: View {
 
     let bodyCheckItems: [BodyCheckItem] = [
@@ -56,7 +56,6 @@ struct DivingBodyCheckView: View {
             description: "Brush your teeth before diving to reduce bacteria in your mouth. A clean mouthpiece prevents bad tastes or infections.",
             icon: "mouth"
         ),
-        // Gear Checks
         BodyCheckItem(
             name: "Mask Fit",
             description: "Test your mask for a snug fit. Place it on your face without straps and inhale gently—it should seal without leaks for clear vision underwater.",
@@ -85,62 +84,58 @@ struct DivingBodyCheckView: View {
     ]
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
+        ZStack {
+            MeshGradient(
+                width: 3,
+                height: 3,
+                points: [
+                    [0.0, 0.0], [0.5, 0.0], [1.0, 0.0],
+                    [0.0, 0.5], [0.9, 0.3], [1.0, 0.5],
+                    [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
+                ],
+                colors: [
+                    .teal, .teal, .teal,
+                    .cyan, .cyan, .cyan,
+                    .cyan, .cyan, .cyan
+                ]
+            )
+            .ignoresSafeArea()
+            
 
-                MeshGradient(
-                    width: 3,
-                    height: 3,
-                    points: [
-                        [0.0, 0.0], [0.5, 0.0], [1.0, 0.0],
-                        [0.0, 0.5], [0.9, 0.3], [1.0, 0.5],
-                        [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
-                    ],
-                    colors: [
-                        .teal, .teal, .teal,
-                        .cyan, .cyan, .cyan,
-                        .cyan, .cyan, .cyan
-                    ]
-                )
-                .ignoresSafeArea()
-
-                
-                // TikTok-style vertical scroll with TabView
-                TabView {
-                    ForEach(bodyCheckItems) { item in
-                        VStack(spacing: 20) {
-                            // Icon for the body check/hygiene/gear topic
-                            Image(systemName: item.icon)
-                                .font(.system(size: 60))
-                                .foregroundColor(.white)
-                                .padding(.top, 50)
-                            
-                            Text(item.name)
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                            
-
-                            Text(item.description)
-                                .font(.body)
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal, 20)
-                            
-                            Spacer()
-                        }
-                        .frame(width: geometry.size.width, height: geometry.size.height) // Full-screen page
-                        .background(Color.black.opacity(0.05)) // Subtle contrast
+            TabView {
+                ForEach(bodyCheckItems) { item in
+                    VStack(spacing: 20) {
+                        Image(systemName: item.icon)
+                            .font(.system(size: 60))
+                            .foregroundColor(.white)
+                            .padding(.top, 50)
+                        
+              
+                        Text(item.name)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                        
+          
+                        Text(item.description)
+                            .font(.body)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 20)
+                        
+                        Spacer()
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-                .tabViewStyle(PageTabViewStyle()) // Enables page-style swiping
-                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always)) // Optional: Adds page dots
             }
+            .tabViewStyle(PageTabViewStyle())
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
         }
     }
 }
 
 #Preview {
-    DivingBodyCheckView()
+    DivingPhysicsView()
 }
+

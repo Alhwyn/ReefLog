@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct ScubaGuide: View {
+    /// scuba guide shows the category of the following scuba guide I learn during my open water diving session mas and used my follwoing notes for the information
+    ///
     
     let cards = [
         ("Scuba Equipment", "water.waves"),
@@ -38,7 +40,7 @@ struct ScubaGuide: View {
                     VStack(spacing: 20) {
                         Text("Scuba Guide")
                             .font(.system(size: 50, weight: .bold))
-                            .foregroundColor(.white)
+                            .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
                             .padding(.top, 40)
                             .padding(.bottom, 10)
                         
@@ -50,7 +52,7 @@ struct ScubaGuide: View {
                                     VStack(spacing: 10) {
                                         Image(systemName: symbol)
                                             .font(.system(size: 30))
-                                            .foregroundColor(.white)
+                                            .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
                                         Text(title)
                                             .font(.headline)
                                             .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.4).opacity(0.7))
@@ -74,6 +76,7 @@ struct ScubaGuide: View {
     
     @ViewBuilder
     private func destinationView(for title: String) -> some View {
+        /// helper function for the to psuh the user into its destination
         if title == "Scuba Equipment" {
             ScubaEquipmentView()
         } else if  title == "Diving Physics"{

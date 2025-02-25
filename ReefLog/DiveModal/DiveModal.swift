@@ -8,6 +8,8 @@ struct NamedImage: Identifiable {
 }
 
 struct DiveEntryView: View {
+    /// this is the the view of the dive model
+    /// when a user want to add a new dive log
     @Environment(\.dismiss) var dismiss
     @State private var location = ""
     @State private var time = ""
@@ -82,6 +84,8 @@ struct DiveEntryView: View {
     }
     
     private func loadImagesAndClassify(from items: [PhotosPickerItem]) async {
+        /// this helper function is for when a user loads an image it will iterate the selected image and classify the
+        /// image using the image classifyer and label the classifcation into the sightings section
         var imagesWithLabels: [NamedImage] = []
         
         guard let classifier = fishClassifier else {
@@ -103,6 +107,7 @@ struct DiveEntryView: View {
 }
 
 struct DatePickerRow: View {
+    /// this helper function is for the user selecting the date of the dive log
     let title: String
     @Binding var date: Date
     
@@ -117,6 +122,9 @@ struct DatePickerRow: View {
 }
 
 struct TextFieldRow: View {
+    /// this helper function is fo the fill out form for the user to fill out the location, time and depth
+
+
     let icon: String
     let placeholder: String
     @Binding var text: String
@@ -132,6 +140,8 @@ struct TextFieldRow: View {
 }
 
 struct SightingsSheet: View {
+    /// the sighting preview is another modal to edit and add custom tags of the following sightings of the users fish adventure
+    /// it is also a modal to added locally fish form the fish database as well
     @Binding var fishSelectedList: [String]
     @State private var customFish = ""
     @State private var fishDatabase = FishDatabase()

@@ -5,6 +5,7 @@ import UIKit
 extension UIImage {
     
     func resizeImageTo(size: CGSize) -> UIImage? {
+        /// sezise the image to its appropriate size form the folllowing iamge classifaction instructions
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         self.draw(in: CGRect(origin: CGPoint.zero, size: size))
@@ -14,6 +15,10 @@ extension UIImage {
     }
     
     func convertToBuffer() -> CVPixelBuffer? {
+        
+         ///Converts the current UIImage into a CVPixelBuffer
+         ///This function creates a pixel buffer representation of the image, which is useful
+         ///for machine learning models that require CVPixelBuffer input, such as CoreML.
         
         let attributes = [
             kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,

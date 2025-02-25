@@ -9,6 +9,8 @@ import SwiftUI
 
 
 struct PhotoGrid: View {
+    /// photo grid help create th elogic of the photo layout when the user selects several photos of its gallery and
+    /// create a cool transition (parralax effect) swiping right ad left
     let images: [NamedImage]
     
     var body: some View {

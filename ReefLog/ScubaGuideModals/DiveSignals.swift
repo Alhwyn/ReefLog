@@ -34,28 +34,8 @@ struct ScubaSignalsView: View {
             imageName: "signal_down"
         ),
         SignalItem(
-            name: "Something's wrong",
-            imageName: "signal_something_wrong"
-        ),
-        SignalItem(
             name: "Ear Not Clearing",
             imageName: "signal_ear"
-        ),
-        SignalItem(
-            name: "Come Here",
-            imageName: "signal_here"
-        ),
-        SignalItem(
-            name: "Watch me",
-            imageName: "signal_watch_me"
-        ),
-        SignalItem(
-            name: "Get with your buddy",
-            imageName: "signal_buddy"
-        ),
-        SignalItem(
-            name: "Low on air",
-            imageName: "signal_low_air"
         ),
         SignalItem(
             name: "Out of Air",

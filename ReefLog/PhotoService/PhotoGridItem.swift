@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PhotoGridItem: View {
+    /// This is the ayout of the PhotoGrid items as well as the lable of the classifcation of the image fomr the image model
+    ///
     let image: UIImage
     let name: String
     

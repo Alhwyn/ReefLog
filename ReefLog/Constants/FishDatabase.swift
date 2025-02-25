@@ -13,6 +13,7 @@ struct Fish: Identifiable, Codable {
 
 
 class FishDatabase: ObservableObject {
+    /// this is the fish database I also used for the fs catague and each species are the species that Minnow-1 can test by its preview
     @Published var fishList: [Fish]
 
     init() {

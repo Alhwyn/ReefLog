@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct FlowResult {
+    /// calculates the positions and sizes of subviews for a flow layout
+    /// wrapping elements into new rows when they exceed the given width
+    /// very similar to the groupSightings function
+    
     var size: CGSize
     var rows: [Row]
     

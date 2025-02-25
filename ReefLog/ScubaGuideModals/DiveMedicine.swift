@@ -11,7 +11,7 @@ struct MedicineItem: Identifiable {
     let id = UUID()
     let name: String
     let description: String
-    let icon: String // SF Symbol name
+    let icon: String 
 }
 
 struct HealthCheckView: View {
@@ -50,58 +50,58 @@ struct HealthCheckView: View {
     ]
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                MeshGradient(
-                    width: 3,
-                    height: 3,
-                    points: [
-                        [0.0, 0.0], [0.5, 0.0], [1.0, 0.0],
-                        [0.0, 0.5], [0.9, 0.3], [1.0, 0.5],
-                        [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
-                    ],
-                    colors: [
-                        .teal, .teal, .teal,
-                        .cyan, .cyan, .cyan,
-                        .cyan, .cyan, .cyan
-                    ]
-                )
-                .ignoresSafeArea()
-                
-                // Vertical scrolling view
-                TabView {
-                    ForEach(healthItems) { item in
-                        VStack(spacing: 20) {
-                            Image(systemName: item.icon)
-                                .font(.system(size: 60))
-                                .foregroundColor(.white)
-                                .padding(.top, 50)
-                            
-                            Text(item.name)
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                            
-                            Text(item.description)
-                                .font(.body)
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal, 20)
-                            
-                            Spacer()
-                        }
-                        .frame(width: geometry.size.width, height: geometry.size.height)
-                        .background(Color.black.opacity(0.05))
+        ZStack {
+            MeshGradient(
+                width: 3,
+                height: 3,
+                points: [
+                    [0.0, 0.0], [0.5, 0.0], [1.0, 0.0],
+                    [0.0, 0.5], [0.9, 0.3], [1.0, 0.5],
+                    [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
+                ],
+                colors: [
+                    .teal, .teal, .teal,
+                    .cyan, .cyan, .cyan,
+                    .cyan, .cyan, .cyan
+                ]
+            )
+            .ignoresSafeArea()
+            
+            TabView {
+                ForEach(healthItems) { item in
+                    VStack(spacing: 20) {
+                        Image(systemName: item.icon)
+                            .font(.system(size: 60))
+                            .foregroundColor(.white)
+                            .padding(.top, 50)
+                        
+              
+                        Text(item.name)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                        
+          
+                        Text(item.description)
+                            .font(.body)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 20)
+                        
+                        Spacer()
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-                .tabViewStyle(PageTabViewStyle())
-                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
             }
+            .tabViewStyle(PageTabViewStyle())
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
         }
     }
 }
 
 #Preview {
-    HealthCheckView()
+    DivingPhysicsView()
 }
+
+

@@ -7,6 +7,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding: Bool = false
+    
     init() {
         let appearance = UITabBarAppearance()
         appearance.configureWithTransparentBackground()
@@ -18,16 +20,17 @@ struct ContentView: View {
     }
 
     var body: some View {
-        
-            
-        
-        TabView {
-            HomeView()
-                .tabItem { Label("Dives Log", systemImage: "water.waves") }
-            FishListView()
-                .tabItem { Label("Reef Catalog", systemImage: "fish") }
-            ScubaGuide()
-                .tabItem { Label("Scuba Guide", systemImage: "info.circle") }
+        if hasSeenOnboarding {
+            TabView {
+                HomeView()
+                    .tabItem { Label("Dives Log", systemImage: "water.waves") }
+                FishListView()
+                    .tabItem { Label("Reef Catalog", systemImage: "fish") }
+                ScubaGuide()
+                    .tabItem { Label("Scuba Guide", systemImage: "info.circle") }
+            }
+        } else {
+            OnboardingView(hasSeenOnboarding: $hasSeenOnboarding)
         }
     }
 }
